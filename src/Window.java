@@ -9,9 +9,12 @@ public class Window extends JFrame implements Runnable{
     KListener kl = new KListener();
     Users user = new Users();
     Menu menu = new Menu();
-    Font font = new Font("TimesRoman", Font.PLAIN, GameData.fontSize);
-    Rectangle menuRectTitle = new Rectangle(GameData.windowWeight, GameData.menuRectTitleH);
-    Rectangle menuRectOptions = new Rectangle(0, GameData.menuRectTitleH, GameData.windowWeight, GameData.menuRectOptionH);
+    Font fontTitle = new Font("TimesRoman", Font.PLAIN, (int)(GameData.fontSize * 1.75));
+    Font fontSubtitle = new Font("TimesRoman", Font.PLAIN, (int)(GameData.fontSize * 0.75));
+    Font fontOption = new Font("TimesRoman", Font.PLAIN, GameData.fontSize);
+    Rectangle menuRectTitle = new Rectangle(0,0, GameData.windowWeight, GameData.menuRectTitleH);
+    Rectangle menuRectSubtitle = new Rectangle(0,GameData.menuRectTitleH, GameData.windowWeight, GameData.menuRectSubtitleH);
+    Rectangle menuRectOptions = new Rectangle(0, GameData.menuRectTitleH + GameData.menuRectSubtitleH, GameData.windowWeight, GameData.menuRectOptionH);
 
     public Window(){
         //Dodać fullscreen
@@ -27,11 +30,19 @@ public class Window extends JFrame implements Runnable{
         menu.changeLogged(user.getCurrUser());
     }
 
-    public void drawCenteredStrings(Graphics g, String[] text, Rectangle rect, Font font) {
+    public void drawCenteredString(Graphics g, String text, Rectangle rect, Font font) {
         FontMetrics metrics = g.getFontMetrics(font);
-        int stringLen = text.length;
-        int tileSize = rect.height / stringLen;
-        for(int i = 0; i < stringLen; i++) {
+        int x = rect.x + (rect.width - metrics.stringWidth(text)) / 2;
+        int y = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
+        g.setFont(font);
+        g.drawString(text, x, y);
+    }
+
+    public void drawCenteredArrStrings(Graphics g, String[] text, Rectangle rect, Font font) {
+        FontMetrics metrics = g.getFontMetrics(font);
+        int arrLen = text.length;
+        int tileSize = rect.height / arrLen;
+        for(int i = 0; i < arrLen; i++) {
             int x = rect.x + (rect.width - metrics.stringWidth(text[i])) / 2;
             int y = rect.y + ((tileSize - metrics.getHeight()) / 2) + metrics.getAscent() + (i+1) * tileSize;
             g.setFont(font);
@@ -44,8 +55,9 @@ public class Window extends JFrame implements Runnable{
         g.fillRect(0,0,GameData.windowWeight, GameData.windowHeight);
 
         g.setColor(Color.RED);
-        drawCenteredStrings(g, menu.titleString, menuRectTitle, font);
-        drawCenteredStrings(g, menu.options, menuRectOptions, font);
+        drawCenteredString(g, menu.title, menuRectTitle, fontTitle);
+        drawCenteredString(g, menu.logged, menuRectSubtitle, fontSubtitle);
+        drawCenteredArrStrings(g, menu.options, menuRectOptions, fontOption);
 
         if(kl.getKeyPressed(KeyEvent.VK_UP)){
             System.out.println("Strzałka w górę!");
