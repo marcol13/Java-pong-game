@@ -29,15 +29,20 @@ public class Window extends JFrame implements Runnable{
         g.setColor(Color.BLACK);
         g.fillRect(0,0,GameData.windowWidth, GameData.windowHeight);
 
-        g.setColor(Color.RED);
+        g.setColor(Color.WHITE);
         menu.drawMenu(g);
 
         if(kl.getKeyPressed(KeyEvent.VK_UP)){
             System.out.println("Strzałka w górę!");
+            if(menu.currOption > 0)
+                menu.currOption--;
         }
         if(kl.getKeyPressed(KeyEvent.VK_DOWN)){
             System.out.println("Strzałka w dół!");
+            if(menu.currOption < menu.options.length - 1)
+                menu.currOption++;
         }
+        System.out.println(menu.currOption);
     }
 
     public void run(){
@@ -50,7 +55,7 @@ public class Window extends JFrame implements Runnable{
             update(deltaTime);
 
             try{
-                Thread.sleep(30);
+                Thread.sleep(120);
             }catch(Exception e){
             }
         }
