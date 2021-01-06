@@ -1,7 +1,7 @@
 import java.awt.*;
 
 public class Bar {
-    private int x, y, width, height;
+    public int x, y, width, height;
     Color barColor;
 
     public Bar(int x, int y, int width, int height, Color barColor){

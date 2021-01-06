@@ -19,11 +19,16 @@ public class Ball {
         g.fillRect(x, y, size, size);
     }
 
-    public void updateBall(){
+    //BOTTOM EDGE!
+    public void updateBall(PlayerController player1, PlayerController player2){
         if(x + vx + size > GameData.windowWidth || x + vx < 0)
             vx = -vx;
         if(y + vy + size > GameData.windowHeight || y + vy < 0)
             vy = - vy;
+        if(x + vx + size > player2.bar.x && y + vy > player2.bar.y && y + vy <= player2.bar.y + player2.bar.height)
+            vx = -vx;
+        if(x + vx < player1.bar.x && y + vy > player1.bar.y && y + vy <= player1.bar.y + player1.bar.height)
+            vx = -vx;
         this.x += vx;
         this.y += vy;
     }
