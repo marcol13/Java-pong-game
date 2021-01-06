@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 
 public class Window extends JFrame implements Runnable{
 
+    Game game;
     Graphics2D g;
     KListener kl = new KListener();
     Users user = new Users();
@@ -21,6 +22,8 @@ public class Window extends JFrame implements Runnable{
         this.addKeyListener(kl);
         g = (Graphics2D)this.getGraphics();
         menu.changeLogged(user.getCurrUser());
+
+        game = new Game(g, kl);
     }
 
 
@@ -29,20 +32,27 @@ public class Window extends JFrame implements Runnable{
         g.setColor(Color.BLACK);
         g.fillRect(0,0,GameData.windowWidth, GameData.windowHeight);
 
-        g.setColor(Color.WHITE);
+        game.updateGame(g,dt);
+
+        /*g.setColor(Color.WHITE);
         menu.drawMenu(g);
 
         if(kl.getKeyPressed(KeyEvent.VK_UP)){
-            System.out.println("Strzałka w górę!");
             if(menu.currOption > 0)
                 menu.currOption--;
         }
         if(kl.getKeyPressed(KeyEvent.VK_DOWN)){
-            System.out.println("Strzałka w dół!");
             if(menu.currOption < menu.options.length - 1)
                 menu.currOption++;
         }
-        System.out.println(menu.currOption);
+        if(kl.getKeyPressed(KeyEvent.VK_ENTER) || kl.getKeyPressed(KeyEvent.VK_SPACE)){
+            if(menu.currOption == 0){
+                Game game = new Game();
+                game.drawGame(g);
+            }
+            if(menu.currOption == 5)
+                System.exit(0);
+        }*/
     }
 
     public void run(){
