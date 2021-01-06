@@ -18,7 +18,7 @@ public class Bar {
     }
 
     public void moveBar(int dy){
-        if(y + dy > 0 || y + dy + height < GameData.windowHeight)
+        if(y + dy > 0 && y + dy + height < GameData.windowHeight)
             this.y += dy;
     }
 

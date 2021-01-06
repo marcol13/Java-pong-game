@@ -11,10 +11,20 @@ public class Ball {
         this.y = y;
         this.vx = vx;
         this.vy = vy;
+        this.ballColor = ballColor;
     }
 
     public void drawBall(Graphics2D g){
         g.setColor(ballColor);
         g.fillRect(x, y, size, size);
+    }
+
+    public void updateBall(){
+        if(x + vx + size > GameData.windowWidth || x + vx < 0)
+            vx = -vx;
+        if(y + vy + size > GameData.windowHeight || y + vy < 0)
+            vy = - vy;
+        this.x += vx;
+        this.y += vy;
     }
 }
