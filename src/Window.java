@@ -60,7 +60,12 @@ public class Window extends JFrame implements Runnable{
     public void update(double dt){
         Image dbImage = createImage(getWidth(), getHeight());
         Graphics dbg = dbImage.getGraphics();
-        this.draw(dbg, dt);
+        this.draw(dbg,dt);
+
+        if(kl.getKeyPressed(KeyEvent.VK_ENTER) || kl.getKeyPressed(KeyEvent.VK_SPACE)){
+            game.startGame = true;
+        }
+
         g.drawImage(dbImage, 0, 0, this);
 
 

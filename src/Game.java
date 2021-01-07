@@ -13,6 +13,8 @@ public class Game {
     public Rectangle result;
     public Rectangle clock;
 
+    boolean startGame = false;
+
     public int gamePadding = 30;
     public int ballSize = 10;
     public int spawnPointX = (int)((GameData.gameBoardW - ballSize)/2) + gamePadding;
@@ -26,8 +28,8 @@ public class Game {
         player1 = new PlayerController(player1Bar, kl, KeyEvent.VK_UP, KeyEvent.VK_DOWN, "unknown");
         player2 = new PlayerController(player2Bar, kl, KeyEvent.VK_W, KeyEvent.VK_S, "gregory");
         board = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingH, GameData.gameBoardW, GameData.gameBoardH);
-        result = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingW, GameData.gameBoardW, (int)(GameData.gameSignH * 0.75));
-        clock = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingW + (int)(GameData.gameSignH * 0.75), GameData.gameBoardW, (int)(GameData.gameSignH * 0.25));
+        result = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingW, GameData.gameBoardW, (int)(GameData.gameSignH * 0.75) - GameData.gamePaddingW);
+        clock = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingW + (int)(GameData.gameSignH * 0.75) - GameData.gamePaddingW, GameData.gameBoardW, (int)(GameData.gameSignH * 0.25));
         ball = new Ball(ballSize,spawnPointX, spawnPointY, GameData.drawSign() * 10, GameData.drawSign() * 5, Color.WHITE);
         ball.drawBall(g);
         player1.bar.drawBar(g);
@@ -41,18 +43,24 @@ public class Game {
         g.draw(board);
         g.setStroke(oldStroke);
         sign(g,dt);
-        ball.updateBall(player1, player2);
-        player1.update(dt);
-        player2.update(dt);
-        ball.drawBall(g);
+        if(startGame) {
+            ball.updateBall(player1, player2, score);
+            player1.update(dt);
+            player2.update(dt);
+            ball.drawBall(g);
+        }
+        else{
+            GameData.drawCenteredString(g,"press enter to start", board, Window.fontTitle);
+        }
         player1.bar.drawBar(g);
         player2.bar.drawBar(g);
+
     }
 
     public void sign(Graphics2D g, double dt){
-        String topSign = player1.playerName + "   " + score[0] + ":" + score[1] + "   " + player2.playerName;
+        String topSign = player1.playerName + "   " + score[0] + "-" + score[1] + "   " + player2.playerName;
         //temp
-        String clockSign = "00:00";
+        String clockSign = "00.00";
         g.setColor(Color.WHITE);
         GameData.drawCenteredString(g,topSign, result, Window.fontTitle);
         GameData.drawCenteredString(g,clockSign, clock, Window.fontOption);
