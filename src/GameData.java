@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.Random;
 
 public class GameData {
@@ -8,7 +9,8 @@ public class GameData {
     public static int menuPaddingW = 20;
     public static int menuPaddingH = 20;
     public static int gamePaddingW = 20;
-    public static int gamePaddingH = 150;
+    public static int gameSignH = 130;
+    public static int gamePaddingH = gamePaddingW + gameSignH;
     public static int gameBoardW = windowWidth - 2 * gamePaddingW;
     public static int gameBoardH = windowHeight - gamePaddingW - gamePaddingH;
     public static int startWidth = (int)(gameBoardW * 0.02);
@@ -19,9 +21,34 @@ public class GameData {
 
     private static Random rnd = new Random();
 
-    public static int drawSign(){
-        if(rnd.nextBoolean())
+    public static int drawSign() {
+        if (rnd.nextBoolean())
             return -1;
         return 1;
+    }
+
+    public static void drawCenteredString(Graphics g, String text, Rectangle rect, Font font) {
+        FontMetrics metrics = g.getFontMetrics(font);
+        int x = rect.x + (rect.width - metrics.stringWidth(text)) / 2;
+        int y = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
+        g.setColor(Color.WHITE);
+        g.setFont(font);
+        g.drawString(text, x, y);
+    }
+
+    public static void drawCenteredArrStrings(Graphics g, String[] text, Rectangle rect, Font font, int currOption) {
+        FontMetrics metrics = g.getFontMetrics(font);
+        int arrLen = text.length;
+        int tileSize = rect.height / arrLen;
+        for(int i = 0; i < arrLen; i++) {
+            if(currOption == i)
+                g.setColor(Color.RED);
+            else
+                g.setColor(Color.WHITE);
+            int x = rect.x + (rect.width - metrics.stringWidth(text[i])) / 2;
+            int y = rect.y + ((tileSize - metrics.getHeight()) / 2) + metrics.getAscent() + i * tileSize;
+            g.setFont(font);
+            g.drawString(text[i], x, y);
+        }
     }
 }

@@ -1,6 +1,8 @@
 import javax.swing.JFrame;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 
 
 public class Window extends JFrame implements Runnable{
@@ -11,6 +13,10 @@ public class Window extends JFrame implements Runnable{
     Users user = new Users();
     Menu menu = new Menu();
 
+    public static Font fontTitle;
+    public static Font fontSubtitle;
+    public static Font fontOption;
+
 
     public Window(){
         //Dodać fullscreen
@@ -20,6 +26,20 @@ public class Window extends JFrame implements Runnable{
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.addKeyListener(kl);
+
+        try {
+            fontTitle = Font.createFont(Font.TRUETYPE_FONT, new File("bin/baby_blocks.ttf")).deriveFont(30f);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("bin/baby_blocks.ttf")));
+            System.out.println(ge);
+            fontSubtitle = new Font("Baby blocks", Font.PLAIN, (int)(GameData.fontSize));
+            fontOption = new Font("Baby blocks", Font.PLAIN, (int)(GameData.fontSize * 1.5));
+        } catch (IOException |FontFormatException e) {
+            Font fontTitle = new Font("TimeRoman", Font.PLAIN, GameData.fontSize * 2);
+            Font fontSubtitle = new Font("TimeRoman", Font.PLAIN, (int)(GameData.fontSize * 0.75));
+            Font fontOption = new Font("TimeRoman", Font.PLAIN, GameData.fontSize);
+        }
+
         g = (Graphics2D)this.getGraphics();
         menu.changeLogged(user.getCurrUser());
 
@@ -45,7 +65,9 @@ public class Window extends JFrame implements Runnable{
 
 
 
-        /*g.setColor(Color.WHITE);
+        /*g.setColor(Color.BLACK);
+        g.fillRect(0,0,GameData.windowWidth, GameData.windowHeight);
+        g.setColor(Color.WHITE);
         menu.drawMenu(g);
 
         if(kl.getKeyPressed(KeyEvent.VK_UP)){
