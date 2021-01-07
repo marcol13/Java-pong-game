@@ -27,12 +27,23 @@ public class Window extends JFrame implements Runnable{
     }
 
 
+    public void draw(Graphics g, double dt){
+        Graphics2D g2 = (Graphics2D)g;
 
-    public void update(double dt){
         g.setColor(Color.BLACK);
         g.fillRect(0,0,GameData.windowWidth, GameData.windowHeight);
 
-        game.updateGame(g,dt);
+        game.updateGame(g2,dt);
+    }
+
+
+    public void update(double dt){
+        Image dbImage = createImage(getWidth(), getHeight());
+        Graphics dbg = dbImage.getGraphics();
+        this.draw(dbg, dt);
+        g.drawImage(dbImage, 0, 0, this);
+
+
 
         /*g.setColor(Color.WHITE);
         menu.drawMenu(g);
