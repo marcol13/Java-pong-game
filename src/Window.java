@@ -47,8 +47,7 @@ public class Window extends JFrame implements Runnable{
         }
         if(kl.getKeyPressed(KeyEvent.VK_ENTER) || kl.getKeyPressed(KeyEvent.VK_SPACE)){
             if(menu.currOption == 0){
-                Game game = new Game();
-                game.drawGame(g);
+
             }
             if(menu.currOption == 5)
                 System.exit(0);
@@ -65,7 +64,7 @@ public class Window extends JFrame implements Runnable{
             update(deltaTime);
 
             try{
-                Thread.sleep(120);
+                Thread.sleep(30);
             }catch(Exception e){
             }
         }

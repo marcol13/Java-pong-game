@@ -21,9 +21,9 @@ public class Ball {
 
     //BOTTOM EDGE!
     public void updateBall(PlayerController player1, PlayerController player2){
-        if(x + vx + size > GameData.windowWidth || x + vx < 0)
+        if(x + vx + size > GameData.windowWidth - GameData.gamePaddingW || x + vx < GameData.gamePaddingW)
             vx = -vx;
-        if(y + vy + size > GameData.windowHeight || y + vy < 0)
+        if(y + vy + size > GameData.windowHeight - GameData.gamePaddingW || y + vy < GameData.gamePaddingH)
             vy = - vy;
         if(x + vx + size > player2.bar.x && y + vy > player2.bar.y && y + vy <= player2.bar.y + player2.bar.height)
             vx = -vx;
