@@ -14,6 +14,7 @@ public class Game {
     public Rectangle clock;
 
     boolean startGame = false;
+    public static boolean pausedGame = true;
 
     public int gamePadding = 30;
     public int ballSize = 10;
@@ -36,14 +37,14 @@ public class Game {
         player2.bar.drawBar(g);
     }
 
-    public void updateGame(Graphics2D g, double dt){
+    public void updateGame(Graphics2D g, double dt, String time){
         Stroke oldStroke = g.getStroke();
         g.setStroke(new BasicStroke(2));
         g.setColor(Color.WHITE);
         g.draw(board);
         g.setStroke(oldStroke);
-        sign(g,dt);
-        if(startGame) {
+        sign(g,time);
+        if(!pausedGame) {
             ball.updateBall(player1, player2, score);
             player1.update(dt);
             player2.update(dt);
@@ -57,10 +58,14 @@ public class Game {
 
     }
 
-    public void sign(Graphics2D g, double dt){
+    public void resetBall(Graphics2D g, String time){
+
+    }
+
+    public void sign(Graphics2D g, String time){
         String topSign = player1.playerName + "   " + score[0] + "-" + score[1] + "   " + player2.playerName;
         //temp
-        String clockSign = "00.00";
+        String clockSign = time;
         g.setColor(Color.WHITE);
         GameData.drawCenteredString(g,topSign, result, Window.fontTitle);
         GameData.drawCenteredString(g,clockSign, clock, Window.fontOption);

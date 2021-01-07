@@ -8,6 +8,7 @@ import java.io.IOException;
 public class Window extends JFrame implements Runnable{
 
     Game game;
+    Clock clock;
     Graphics2D g;
     KListener kl = new KListener();
     Users user = new Users();
@@ -44,6 +45,7 @@ public class Window extends JFrame implements Runnable{
         menu.changeLogged(user.getCurrUser());
 
         game = new Game(g, kl);
+        clock = new Clock();
     }
 
 
@@ -53,7 +55,7 @@ public class Window extends JFrame implements Runnable{
         g.setColor(Color.BLACK);
         g.fillRect(0,0,GameData.windowWidth, GameData.windowHeight);
 
-        game.updateGame(g2,dt);
+        game.updateGame(g2,dt,clock.getTimeString());
     }
 
 
@@ -62,10 +64,18 @@ public class Window extends JFrame implements Runnable{
         Graphics dbg = dbImage.getGraphics();
         this.draw(dbg,dt);
 
-        if(kl.getKeyPressed(KeyEvent.VK_ENTER) || kl.getKeyPressed(KeyEvent.VK_SPACE)){
-            game.startGame = true;
+        if(!game.startGame) {
+            if (kl.getKeyPressed(KeyEvent.VK_ENTER) || kl.getKeyPressed(KeyEvent.VK_SPACE)) {
+                game.startGame = true;
+                Game.pausedGame = false;
+                clock.start();
+            }
         }
-
+        if(Game.pausedGame){
+            if (kl.getKeyPressed(KeyEvent.VK_ENTER) || kl.getKeyPressed(KeyEvent.VK_SPACE)) {
+                Game.pausedGame = false;
+            }
+        }
         g.drawImage(dbImage, 0, 0, this);
 
 
