@@ -43,6 +43,8 @@ public class Ball {
                 score[0]++;
                 Game.pausedGame = true;
                 resetBall();
+                player1.bar.resetBar();
+                player2.bar.resetBar();
             }
 
             if (x + vx < GameData.gamePaddingW) {
@@ -50,6 +52,8 @@ public class Ball {
                 score[1]++;
                 Game.pausedGame = true;
                 resetBall();
+                player1.bar.resetBar();
+                player2.bar.resetBar();
             }
 
             if (y + vy + size > GameData.windowHeight - GameData.gamePaddingW || y + vy < GameData.gamePaddingH)
@@ -57,20 +61,22 @@ public class Ball {
             if (x + vx + size > player2.bar.x && y + vy > player2.bar.y && y + vy <= player2.bar.y + player2.bar.height) {
                 vx++;
                 vx = -vx;
-                if(vy > 0)
-                    vy++;
-                else
-                    vy--;
-                System.out.println(vx);
+                if(GameData.drawSign() == -1) {
+                    if (vy > 0)
+                        vy++;
+                    else
+                        vy--;
+                }
             }
             if (x + vx < player1.bar.x + player1.bar.width && y + vy > player1.bar.y && y + vy <= player1.bar.y + player1.bar.height) {
                 vx = -vx;
                 vx++;
-                if(vy > 0)
-                    vy++;
-                else
-                    vy--;
-                System.out.println(vx);
+                if(GameData.drawSign() == -1) {
+                    if (vy > 0)
+                        vy++;
+                    else
+                        vy--;
+                }
             }
             this.x += vx;
             this.y += vy;
