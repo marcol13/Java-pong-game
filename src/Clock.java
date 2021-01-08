@@ -7,14 +7,16 @@ public class Clock {
     int minutes;
 
     boolean started;
-    boolean paused;
+    public boolean paused;
 
     Timer timer = new Timer();
     TimerTask task = new TimerTask(){
         public void run(){
-            elapsedTime++;
-            seconds = elapsedTime % 60;
-            minutes = (int)(elapsedTime/60) % 60;
+            if(!paused) {
+                elapsedTime++;
+                seconds = elapsedTime % 60;
+                minutes = (int) (elapsedTime / 60) % 60;
+            }
         }
     };
     

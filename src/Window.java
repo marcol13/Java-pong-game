@@ -55,7 +55,7 @@ public class Window extends JFrame implements Runnable{
         g.setColor(Color.BLACK);
         g.fillRect(0,0,GameData.windowWidth, GameData.windowHeight);
 
-        game.updateGame(g2,dt,clock.getTimeString());
+        game.updateGame(g2,dt,clock);
     }
 
 
@@ -69,6 +69,7 @@ public class Window extends JFrame implements Runnable{
                 game.startGame = true;
                 Game.pausedGame = false;
                 clock.start();
+
             }
         }
         if(Game.pausedGame){

@@ -37,21 +37,23 @@ public class Game {
         player2.bar.drawBar(g);
     }
 
-    public void updateGame(Graphics2D g, double dt, String time){
+    public void updateGame(Graphics2D g, double dt, Clock clock){
         Stroke oldStroke = g.getStroke();
         g.setStroke(new BasicStroke(2));
         g.setColor(Color.WHITE);
         g.draw(board);
         g.setStroke(oldStroke);
-        sign(g,time);
+        sign(g,clock.getTimeString());
         if(!pausedGame) {
             ball.updateBall(player1, player2, score);
             player1.update(dt);
             player2.update(dt);
             ball.drawBall(g);
+            clock.paused = false;
         }
         else{
             GameData.drawCenteredString(g,"press enter to start", board, Window.fontTitle);
+            clock.paused = true;
         }
         player1.bar.drawBar(g);
         player2.bar.drawBar(g);
