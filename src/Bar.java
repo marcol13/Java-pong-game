@@ -5,13 +5,15 @@ public class Bar {
     private int initX, initY, upLimit, downLimit;
     Color barColor;
 
-    public Bar(int x, int y, int width, int height, Color barColor){
+    public Bar(int x, int y, int width, int height, int upLimit, int downLimit, Color barColor){
         this.x = x;
         this.y = y;
         this.initX = x;
         this.initY = y;
         this.width = width;
         this.height = height;
+        this.upLimit = upLimit;
+        this.downLimit = downLimit;
         this.barColor = barColor;
     }
 
@@ -21,7 +23,7 @@ public class Bar {
     }
 
     public void moveBar(int dy){
-        if(y + dy > GameData.gamePaddingH && y + dy + height < GameData.windowHeight - GameData.gamePaddingW)
+        if(y + dy > upLimit && y + dy + height < downLimit)
             this.y += dy;
     }
 

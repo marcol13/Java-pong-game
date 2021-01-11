@@ -86,4 +86,57 @@ public class Ball {
             this.y += vy;
         }
     }
+
+    public void updateBall(Controller player1, Controller player2, Controller player3, Controller player4, int [] score){
+        if(x <= 0 || x + size >= GameData.windowWidth - GameData.gamePaddingW)
+            vx = -vx;
+        else {
+            if (x + vx + size > GameData.windowWidth - GameData.gamePaddingW) {
+                vx = -vx;
+                score[0]++;
+                Game.pausedGame = true;
+                resetBall();
+                player1.bar.resetBar();
+                player2.bar.resetBar();
+                player3.bar.resetBar();
+                player4.bar.resetBar();
+            }
+
+            if (x + vx < GameData.gamePaddingW) {
+                vx = -vx;
+                score[1]++;
+                Game.pausedGame = true;
+                resetBall();
+                player1.bar.resetBar();
+                player2.bar.resetBar();
+                player3.bar.resetBar();
+                player4.bar.resetBar();
+            }
+
+            if (y + vy + size > GameData.windowHeight - GameData.gamePaddingW || y + vy < GameData.gamePaddingH)
+                vy = -vy;
+            if ((x + vx + size > player3.bar.x && y + vy > player3.bar.y && y + vy <= player3.bar.y + player3.bar.height) || (x + vx + size > player4.bar.x && y + vy > player4.bar.y && y + vy <= player4.bar.y + player4.bar.height)) {
+                vx++;
+                vx = -vx;
+                if(GameData.drawSign() == -1) {
+                    if (vy > 0)
+                        vy++;
+                    else
+                        vy--;
+                }
+            }
+            if ((x + vx < player1.bar.x + player1.bar.width && y + vy > player1.bar.y && y + vy <= player1.bar.y + player1.bar.height) || (x + vx < player2.bar.x + player2.bar.width && y + vy > player2.bar.y && y + vy <= player2.bar.y + player2.bar.height)){
+                vx = -vx;
+                vx++;
+                if(GameData.drawSign() == -1) {
+                    if (vy > 0)
+                        vy++;
+                    else
+                        vy--;
+                }
+            }
+            this.x += vx;
+            this.y += vy;
+        }
+    }
 }

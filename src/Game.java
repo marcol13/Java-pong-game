@@ -37,28 +37,34 @@ public class Game {
 
         switch (mode) {
             case "1v1" -> {
-                Bar player1Bar = new Bar(gamePadding,GameData.gamePaddingH + (int)(GameData.gamePaddingH/2 + GameData.startHeight/2), GameData.startWidth, GameData.startHeight, Color.WHITE);
-                Bar player2Bar = new Bar(GameData.windowWidth - gamePadding - GameData.startWidth, GameData.gamePaddingH + (int) (GameData.gamePaddingH / 2 + GameData.startHeight / 2), GameData.startWidth, GameData.startHeight, Color.WHITE);
+                Bar player1Bar = new Bar(gamePadding,GameData.gamePaddingH + (int)(GameData.gamePaddingH/2 + GameData.startHeight/2), GameData.startWidth, GameData.startHeight, GameData.gamePaddingH,  GameData.windowHeight - GameData.gamePaddingW, Color.WHITE);
+                Bar player2Bar = new Bar(GameData.windowWidth - gamePadding - GameData.startWidth, GameData.gamePaddingH + (int) (GameData.gamePaddingH / 2 + GameData.startHeight / 2), GameData.startWidth, GameData.startHeight, GameData.gamePaddingH, GameData.windowHeight - GameData.gamePaddingW, Color.WHITE);
                 player1 = new Player(player1Bar, "unknown", kl, KeyEvent.VK_UP, KeyEvent.VK_DOWN);
                 player2 = new Player(player2Bar, "gregory", kl, KeyEvent.VK_W, KeyEvent.VK_S);
                 player1.bar.drawBar(g);
                 player2.bar.drawBar(g);
             }
             case "1vAI" -> {
-                Bar player1Bar = new Bar(gamePadding,GameData.gamePaddingH + (int)(GameData.gamePaddingH/2 + GameData.startHeight/2), GameData.startWidth, GameData.startHeight, Color.WHITE);
-                Bar ai1Bar = new Bar(GameData.windowWidth - gamePadding - GameData.startWidth, GameData.gamePaddingH + (int) (GameData.gamePaddingH / 2 + GameData.startHeight / 2), GameData.startWidth, GameData.startHeight, Color.WHITE);
+                Bar player1Bar = new Bar(gamePadding,GameData.gamePaddingH + (int)(GameData.gamePaddingH/2 + GameData.startHeight/2), GameData.startWidth, GameData.startHeight, GameData.gamePaddingH, GameData.windowHeight - GameData.gamePaddingW, Color.WHITE);
+                Bar ai1Bar = new Bar(GameData.windowWidth - gamePadding - GameData.startWidth, GameData.gamePaddingH + (int) (GameData.gamePaddingH / 2 + GameData.startHeight / 2), GameData.startWidth, GameData.startHeight, GameData.gamePaddingH, GameData.windowHeight - GameData.gamePaddingW, Color.WHITE);
                 player1 = new Player(player1Bar, "unknown", kl, KeyEvent.VK_UP, KeyEvent.VK_DOWN);
                 ai1 = new AI(ai1Bar, "cpu", ball);
                 player1.bar.drawBar(g);
                 ai1.bar.drawBar(g);
             }
             case "2v2AI" -> {
-                Bar player1Bar = new Bar(gamePadding,GameData.gamePaddingH + (int)(GameData.gamePaddingH/4 + GameData.startHeight/4), (int)(GameData.startWidth * 0.75), (int)(GameData.startHeight * 0.75), Color.WHITE);
-                Bar player2Bar = new Bar(gamePadding,GameData.gamePaddingH + (int)(GameData.gamePaddingH + GameData.startHeight), (int)(GameData.startWidth * 0.75), (int)(GameData.startHeight * 0.75), Color.WHITE);
+                Bar player1Bar = new Bar(gamePadding,GameData.gamePaddingH + (int)(GameData.gamePaddingH/4 + GameData.startHeight/4), (int)(GameData.startWidth * 0.75), (int)(GameData.startHeight * 0.75), GameData.gamePaddingH, (int)(GameData.gameBoardH / 2 + GameData.gamePaddingH), Color.WHITE);
+                Bar player2Bar = new Bar(gamePadding,GameData.gamePaddingH + (int)(GameData.gamePaddingH + GameData.startHeight), (int)(GameData.startWidth * 0.75), (int)(GameData.startHeight * 0.75), (int)(GameData.gameBoardH / 2 + GameData.gamePaddingH), GameData.windowHeight - GameData.gamePaddingW, Color.WHITE);
+                Bar ai1Bar = new Bar(GameData.windowWidth - gamePadding - GameData.startWidth, GameData.gamePaddingH + (int) (GameData.gamePaddingH / 4 + GameData.startHeight / 4), (int)(GameData.startWidth * 0.75), (int)(GameData.startHeight * 0.75), GameData.gamePaddingH, (int)(GameData.gameBoardH / 2 + GameData.gamePaddingH), Color.WHITE);
+                Bar ai2Bar = new Bar(GameData.windowWidth - gamePadding - GameData.startWidth, GameData.gamePaddingH + (int) (GameData.gamePaddingH + GameData.startHeight), (int)(GameData.startWidth * 0.75), (int)(GameData.startHeight * 0.75), (int)(GameData.gameBoardH / 2 + GameData.gamePaddingH), GameData.windowHeight - GameData.gamePaddingW, Color.WHITE);
                 player1 = new Player(player1Bar, "unknown", kl, KeyEvent.VK_UP, KeyEvent.VK_DOWN);
                 player2 = new Player(player2Bar, "gregory", kl, KeyEvent.VK_W, KeyEvent.VK_S);
+                ai1 = new AI(ai1Bar, "cpu1", ball);
+                ai2 = new AI(ai2Bar, "cpu2", ball);
                 player1.bar.drawBar(g);
                 player2.bar.drawBar(g);
+                ai1.bar.drawBar(g);
+                ai2.bar.drawBar(g);
             }
             default -> throw new RuntimeException("Incorrect game mode");
         }
@@ -85,8 +91,11 @@ public class Game {
                     ai1.update(dt);
                 }
                 case "2v2AI" -> {
-                    ball.updateBall(player1, player2, score);
+                    ball.updateBall(player1, player2, ai1, ai2, score);
                     player2.update(dt);
+                    ai1.update(dt);
+                    ai2.update(dt);
+
                 }
             }
             player1.update(dt);
@@ -113,6 +122,9 @@ public class Game {
                 GameData.drawDashedLine(g, GameData.gamePaddingW, (int)(GameData.gameBoardH / 2 + GameData.gamePaddingH),GameData.windowWidth - GameData.gamePaddingW, (int)(GameData.gameBoardH / 2 + GameData.gamePaddingH));
                 player1.bar.drawBar(g);
                 player2.bar.drawBar(g);
+                ai1.bar.drawBar(g);
+                ai2.bar.drawBar(g);
+
             }
         }
     }
