@@ -29,9 +29,7 @@ public class Game {
 
     //1V1
     public Game(Graphics2D g, KListener kl, String mode){
-        Bar player1Bar = new Bar(gamePadding,GameData.gamePaddingH + (int)(GameData.gamePaddingH/2 + GameData.startHeight/2), GameData.startWidth, GameData.startHeight, Color.WHITE);
         ball = new Ball(ballSize,spawnPointX, spawnPointY, GameData.drawSign() * 2, GameData.drawSign() * 2, Color.WHITE);
-        player1 = new Player(player1Bar, "unknown", kl, KeyEvent.VK_UP, KeyEvent.VK_DOWN);
         board = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingH, GameData.gameBoardW, GameData.gameBoardH);
         result = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingW, GameData.gameBoardW, (int)(GameData.gameSignH * 0.75) - GameData.gamePaddingW);
         clock = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingW + (int)(GameData.gameSignH * 0.75) - GameData.gamePaddingW, GameData.gameBoardW, (int)(GameData.gameSignH * 0.25));
@@ -39,19 +37,28 @@ public class Game {
 
         switch (mode) {
             case "1v1" -> {
+                Bar player1Bar = new Bar(gamePadding,GameData.gamePaddingH + (int)(GameData.gamePaddingH/2 + GameData.startHeight/2), GameData.startWidth, GameData.startHeight, Color.WHITE);
                 Bar player2Bar = new Bar(GameData.windowWidth - gamePadding - GameData.startWidth, GameData.gamePaddingH + (int) (GameData.gamePaddingH / 2 + GameData.startHeight / 2), GameData.startWidth, GameData.startHeight, Color.WHITE);
+                player1 = new Player(player1Bar, "unknown", kl, KeyEvent.VK_UP, KeyEvent.VK_DOWN);
                 player2 = new Player(player2Bar, "gregory", kl, KeyEvent.VK_W, KeyEvent.VK_S);
                 player1.bar.drawBar(g);
                 player2.bar.drawBar(g);
             }
             case "1vAI" -> {
+                Bar player1Bar = new Bar(gamePadding,GameData.gamePaddingH + (int)(GameData.gamePaddingH/2 + GameData.startHeight/2), GameData.startWidth, GameData.startHeight, Color.WHITE);
                 Bar ai1Bar = new Bar(GameData.windowWidth - gamePadding - GameData.startWidth, GameData.gamePaddingH + (int) (GameData.gamePaddingH / 2 + GameData.startHeight / 2), GameData.startWidth, GameData.startHeight, Color.WHITE);
+                player1 = new Player(player1Bar, "unknown", kl, KeyEvent.VK_UP, KeyEvent.VK_DOWN);
                 ai1 = new AI(ai1Bar, "cpu", ball);
                 player1.bar.drawBar(g);
                 ai1.bar.drawBar(g);
             }
             case "2v2AI" -> {
-
+                Bar player1Bar = new Bar(gamePadding,GameData.gamePaddingH + (int)(GameData.gamePaddingH/4 + GameData.startHeight/4), (int)(GameData.startWidth * 0.75), (int)(GameData.startHeight * 0.75), Color.WHITE);
+                Bar player2Bar = new Bar(gamePadding,GameData.gamePaddingH + (int)(GameData.gamePaddingH + GameData.startHeight), (int)(GameData.startWidth * 0.75), (int)(GameData.startHeight * 0.75), Color.WHITE);
+                player1 = new Player(player1Bar, "unknown", kl, KeyEvent.VK_UP, KeyEvent.VK_DOWN);
+                player2 = new Player(player2Bar, "gregory", kl, KeyEvent.VK_W, KeyEvent.VK_S);
+                player1.bar.drawBar(g);
+                player2.bar.drawBar(g);
             }
             default -> throw new RuntimeException("Incorrect game mode");
         }
@@ -78,7 +85,8 @@ public class Game {
                     ai1.update(dt);
                 }
                 case "2v2AI" -> {
-
+                    ball.updateBall(player1, player2, score);
+                    player2.update(dt);
                 }
             }
             player1.update(dt);
@@ -89,19 +97,22 @@ public class Game {
             GameData.drawCenteredString(g,"press enter to start", board, Window.fontTitle);
             clock.paused = true;
         }
-        player1.bar.drawBar(g);
+
         switch (mode) {
             case "1v1" -> {
                 sign(g,clock.getTimeString(),player2);
+                player1.bar.drawBar(g);
                 player2.bar.drawBar(g);
             }
             case "1vAI" -> {
                 sign(g,clock.getTimeString(),ai1);
+                player1.bar.drawBar(g);
                 ai1.bar.drawBar(g);
             }
             case "2v2AI" -> {
                 GameData.drawDashedLine(g, GameData.gamePaddingW, (int)(GameData.gameBoardH / 2 + GameData.gamePaddingH),GameData.windowWidth - GameData.gamePaddingW, (int)(GameData.gameBoardH / 2 + GameData.gamePaddingH));
-
+                player1.bar.drawBar(g);
+                player2.bar.drawBar(g);
             }
         }
     }

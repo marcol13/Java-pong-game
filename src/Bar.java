@@ -2,7 +2,7 @@ import java.awt.*;
 
 public class Bar {
     public int x, y, width, height;
-    private int initX, initY;
+    private int initX, initY, upLimit, downLimit;
     Color barColor;
 
     public Bar(int x, int y, int width, int height, Color barColor){
