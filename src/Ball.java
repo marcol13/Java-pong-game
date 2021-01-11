@@ -33,8 +33,12 @@ public class Ball {
         g.fillRect(x, y, size, size);
     }
 
+    public int getMiddle(){
+        return (int)(size / 2 + y);
+    }
+
     //BOTTOM EDGE!
-    public void updateBall(PlayerController player1, PlayerController player2, int [] score){
+    public void updateBall(Controller player1, Controller player2, int [] score){
         if(x <= 0 || x + size >= GameData.windowWidth - GameData.gamePaddingW)
             vx = -vx;
         else {

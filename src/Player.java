@@ -1,19 +1,13 @@
-import java.awt.*;
-import java.awt.event.KeyEvent;
-
-public class PlayerController {
-    public Bar bar;
+public class Player extends Controller{
     public KListener kl;
-    public String playerName;
     private int upKey;
     private int downKey;
 
-    public PlayerController(Bar bar, KListener kl, int upKey, int downKey, String playerName){
-        this.bar = bar;
+    public Player(Bar bar, String playerName, KListener kl, int upKey, int downKey){
+        super(bar, playerName);
         this.kl = kl;
         this.upKey = upKey;
         this.downKey = downKey;
-        this.playerName = playerName;
     }
 
     public void update(double dt){

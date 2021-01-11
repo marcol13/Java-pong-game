@@ -3,8 +3,9 @@ import java.awt.event.KeyEvent;
 
 public class Game {
 
-    PlayerController player1;
-    PlayerController player2;
+    Player player1;
+    //Player player2;
+    AI ai;
     Ball ball;
 
     public int score[] = new int[2];
@@ -25,16 +26,20 @@ public class Game {
     //1V1
     public Game(Graphics2D g, KListener kl){
         Bar player1Bar = new Bar(gamePadding,GameData.gamePaddingH + (int)(GameData.gamePaddingH/2 + GameData.startHeight/2), GameData.startWidth, GameData.startHeight, Color.WHITE);
+        //Bar player2Bar = new Bar(GameData.windowWidth - gamePadding - GameData.startWidth,GameData.gamePaddingH + (int)(GameData.gamePaddingH/2 + GameData.startHeight/2), GameData.startWidth, GameData.startHeight, Color.WHITE);
         Bar player2Bar = new Bar(GameData.windowWidth - gamePadding - GameData.startWidth,GameData.gamePaddingH + (int)(GameData.gamePaddingH/2 + GameData.startHeight/2), GameData.startWidth, GameData.startHeight, Color.WHITE);
-        player1 = new PlayerController(player1Bar, kl, KeyEvent.VK_UP, KeyEvent.VK_DOWN, "unknown");
-        player2 = new PlayerController(player2Bar, kl, KeyEvent.VK_W, KeyEvent.VK_S, "gregory");
+        ball = new Ball(ballSize,spawnPointX, spawnPointY, GameData.drawSign() * 2, GameData.drawSign() * 2, Color.WHITE);
+        player1 = new Player(player1Bar, "unknown", kl, KeyEvent.VK_UP, KeyEvent.VK_DOWN);
+        //player2 = new Player(player2Bar, "gregory", kl, KeyEvent.VK_W, KeyEvent.VK_S);
+        ai = new AI(player2Bar, "cpu", ball);
         board = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingH, GameData.gameBoardW, GameData.gameBoardH);
         result = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingW, GameData.gameBoardW, (int)(GameData.gameSignH * 0.75) - GameData.gamePaddingW);
         clock = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingW + (int)(GameData.gameSignH * 0.75) - GameData.gamePaddingW, GameData.gameBoardW, (int)(GameData.gameSignH * 0.25));
-        ball = new Ball(ballSize,spawnPointX, spawnPointY, GameData.drawSign() * 2, GameData.drawSign() * 2, Color.WHITE);
+
         ball.drawBall(g);
         player1.bar.drawBar(g);
-        player2.bar.drawBar(g);
+        //player2.bar.drawBar(g);
+        ai.bar.drawBar(g);
     }
 
     public void updateGame(Graphics2D g, double dt, Clock clock){
@@ -45,9 +50,11 @@ public class Game {
         g.setStroke(oldStroke);
         sign(g,clock.getTimeString());
         if(!pausedGame) {
-            ball.updateBall(player1, player2, score);
+            //ball.updateBall(player1, player2, score);
+            ball.updateBall(player1, ai, score);
             player1.update(dt);
-            player2.update(dt);
+            //player2.update(dt);
+            ai.update(dt);
             ball.drawBall(g);
             clock.paused = false;
         }
@@ -56,7 +63,8 @@ public class Game {
             clock.paused = true;
         }
         player1.bar.drawBar(g);
-        player2.bar.drawBar(g);
+        //player2.bar.drawBar(g);
+        ai.bar.drawBar(g);
 
     }
 
@@ -65,7 +73,8 @@ public class Game {
     }
 
     public void sign(Graphics2D g, String time){
-        String topSign = player1.playerName + "   " + score[0] + "-" + score[1] + "   " + player2.playerName;
+        //String topSign = player1.playerName + "   " + score[0] + "-" + score[1] + "   " + player2.playerName;
+        String topSign = player1.playerName + "   " + score[0] + "-" + score[1] + "   " + ai.playerName;
         //temp
         String clockSign = time;
         g.setColor(Color.WHITE);

@@ -25,6 +25,10 @@ public class Bar {
             this.y += dy;
     }
 
+    public int getMiddle(){
+        return (int)(height / 2 + y);
+    }
+
     public void resetBar(){
         x = initX;
         y = initY;
