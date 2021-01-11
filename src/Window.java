@@ -44,7 +44,7 @@ public class Window extends JFrame implements Runnable{
         g = (Graphics2D)this.getGraphics();
         menu.changeLogged(user.getCurrUser());
 
-        game = new Game(g, kl);
+        game = new Game(g, kl, "2v2AI");
         clock = new Clock();
     }
 
