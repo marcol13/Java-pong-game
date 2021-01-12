@@ -13,7 +13,7 @@ public class Game {
 
     public Rectangle board;
     public Rectangle result;
-    public Rectangle clock;
+    public Rectangle clockSign;
 
     boolean startGame = false;
     public static boolean pausedGame = true;
@@ -32,7 +32,7 @@ public class Game {
         ball = new Ball(ballSize,spawnPointX, spawnPointY, GameData.drawSign() * 2, GameData.drawSign() * 2, Color.WHITE);
         board = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingH, GameData.gameBoardW, GameData.gameBoardH);
         result = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingW, GameData.gameBoardW, (int)(GameData.gameSignH * 0.75) - GameData.gamePaddingW);
-        clock = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingW + (int)(GameData.gameSignH * 0.75) - GameData.gamePaddingW, GameData.gameBoardW, (int)(GameData.gameSignH * 0.25));
+        clockSign = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingW + (int)(GameData.gameSignH * 0.75) - GameData.gamePaddingW, GameData.gameBoardW, (int)(GameData.gameSignH * 0.25));
         this.mode = mode;
 
         switch (mode) {
@@ -103,22 +103,26 @@ public class Game {
             clock.paused = false;
         }
         else{
-            GameData.drawCenteredString(g,"press enter to start", board, Window.fontTitle);
+            if(mode.equals("2v2AI"))
+                GameData.drawCenteredString(g,"press enter to start", new Rectangle(GameData.gamePaddingW, GameData.gamePaddingH, GameData.gameBoardW, (int)(GameData.gameBoardH / 2)), Window.fontTitle);
+            else
+                GameData.drawCenteredString(g,"press enter to start", board, Window.fontTitle);
             clock.paused = true;
         }
 
         switch (mode) {
             case "1v1" -> {
-                sign(g,clock.getTimeString(),player2);
+                sign(g,clock.getTimeString(), result, clockSign, player1, player2);
                 player1.bar.drawBar(g);
                 player2.bar.drawBar(g);
             }
             case "1vAI" -> {
-                sign(g,clock.getTimeString(),ai1);
+                sign(g,clock.getTimeString(),result, clockSign, player1, ai1);
                 player1.bar.drawBar(g);
                 ai1.bar.drawBar(g);
             }
             case "2v2AI" -> {
+                sign(g, clock.getTimeString(), result, clockSign, player1, player2, ai1, ai2);
                 GameData.drawDashedLine(g, GameData.gamePaddingW, (int)(GameData.gameBoardH / 2 + GameData.gamePaddingH),GameData.windowWidth - GameData.gamePaddingW, (int)(GameData.gameBoardH / 2 + GameData.gamePaddingH));
                 player1.bar.drawBar(g);
                 player2.bar.drawBar(g);
@@ -129,9 +133,19 @@ public class Game {
         }
     }
 
-    public void sign(Graphics2D g, String time, Controller player){
+    public void sign(Graphics2D g, String time, Rectangle result, Rectangle clock, Controller player1, Controller player2){
         //String topSign = player1.playerName + "   " + score[0] + "-" + score[1] + "   " + player2.playerName;
-        String topSign = player1.playerName + "   " + score[0] + "-" + score[1] + "   " + player.playerName;
+        String topSign = player1.playerName + "   " + score[0] + "-" + score[1] + "   " + player2.playerName;
+        //temp
+        String clockSign = time;
+        g.setColor(Color.WHITE);
+        GameData.drawCenteredString(g,topSign, result, Window.fontTitle);
+        GameData.drawCenteredString(g,clockSign, clock, Window.fontOption);
+    }
+
+    public void sign(Graphics2D g, String time, Rectangle result, Rectangle clock, Controller player1, Controller player2, Controller player3, Controller player4){
+        //String topSign = player1.playerName + "   " + score[0] + "-" + score[1] + "   " + player2.playerName;
+        String topSign = player1.playerName + ", " + player2.playerName + "   " + score[0] + "-" + score[1] + "   " + player3.playerName + ", " + player4.playerName;
         //temp
         String clockSign = time;
         g.setColor(Color.WHITE);
