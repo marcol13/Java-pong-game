@@ -7,7 +7,9 @@ import java.io.IOException;
 
 public class Window extends JFrame implements Runnable{
 
-    Game game;
+    GameMode1v1 game;
+//    GameMode1vAI game;
+//    GameMode2v2AI game;
     Clock clock;
     Graphics2D g;
     KListener kl = new KListener();
@@ -44,7 +46,9 @@ public class Window extends JFrame implements Runnable{
         g = (Graphics2D)this.getGraphics();
         menu.changeLogged(user.getCurrUser());
 
-        game = new Game(g, kl, "2v2AI");
+        game = new GameMode1v1(g, kl);
+        //game = new GameMode1vAI(g,kl);
+        //game = new GameMode2v2AI(g,kl);
         clock = new Clock();
     }
 
