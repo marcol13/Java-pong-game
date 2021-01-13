@@ -16,7 +16,7 @@ public class GameMode1v1 extends Game{
         player2.bar.drawBar(g);
     }
 
-    public void updateGame(Graphics2D g, double dt, Clock clock){
+    public void updateGame(Graphics2D g, double dt){
         updateBoard(g);
         if(!pausedGame) {
             ball.updateBall(player1, player2, score);

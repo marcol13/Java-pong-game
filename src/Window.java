@@ -10,7 +10,7 @@ public class Window extends JFrame implements Runnable{
     GameMode1v1 game;
 //    GameMode1vAI game;
 //    GameMode2v2AI game;
-    Clock clock;
+//    Clock clock;
     Graphics2D g;
     KListener kl = new KListener();
     Users user = new Users();
@@ -49,7 +49,8 @@ public class Window extends JFrame implements Runnable{
         game = new GameMode1v1(g, kl);
         //game = new GameMode1vAI(g,kl);
         //game = new GameMode2v2AI(g,kl);
-        clock = new Clock();
+//        clock = new Clock();
+//        Thread tClock = new Thread(clock);
     }
 
 
@@ -59,7 +60,7 @@ public class Window extends JFrame implements Runnable{
         g.setColor(Color.BLACK);
         g.fillRect(0,0,GameData.windowWidth, GameData.windowHeight);
 
-        game.updateGame(g2,dt,clock);
+        game.updateGame(g2,dt);
     }
 
 
@@ -68,19 +69,7 @@ public class Window extends JFrame implements Runnable{
         Graphics dbg = dbImage.getGraphics();
         this.draw(dbg,dt);
 
-        if(!game.startGame) {
-            if (kl.getKeyPressed(KeyEvent.VK_ENTER) || kl.getKeyPressed(KeyEvent.VK_SPACE)) {
-                game.startGame = true;
-                Game.pausedGame = false;
-                clock.start();
 
-            }
-        }
-        if(Game.pausedGame){
-            if (kl.getKeyPressed(KeyEvent.VK_ENTER) || kl.getKeyPressed(KeyEvent.VK_SPACE)) {
-                Game.pausedGame = false;
-            }
-        }
         g.drawImage(dbImage, 0, 0, this);
 
 

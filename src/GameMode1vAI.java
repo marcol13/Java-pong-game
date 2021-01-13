@@ -16,7 +16,7 @@ public class GameMode1vAI extends Game{
         ai.bar.drawBar(g);
     }
 
-    public void updateGame(Graphics2D g, double dt, Clock clock){
+    public void updateGame(Graphics2D g, double dt){
         updateBoard(g);
         if(!pausedGame){
             ball.updateBall(player, ai, score);

@@ -1,7 +1,7 @@
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Clock {
+public class Clock implements Runnable{
     int elapsedTime;
     int seconds;
     int minutes;
@@ -28,7 +28,7 @@ public class Clock {
         this.paused = false;
     }
 
-    public void start(){
+    public void run(){
         timer.scheduleAtFixedRate(task,1000,1000);
     }
 

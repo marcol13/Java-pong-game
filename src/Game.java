@@ -4,6 +4,8 @@ import java.awt.event.KeyEvent;
 public class Game {
 
     Ball ball;
+    Clock clock;
+    KListener kl;
 
     public int score[] = new int[2];
 
@@ -25,11 +27,15 @@ public class Game {
 
     //1V1
     public Game(Graphics2D g, KListener kl){
+        this.kl = kl;
         ball = new Ball(ballSize,spawnPointX, spawnPointY, GameData.drawSign() * 2, GameData.drawSign() * 2, Color.WHITE);
         board = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingH, GameData.gameBoardW, GameData.gameBoardH);
         result = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingW, GameData.gameBoardW, (int)(GameData.gameSignH * 0.75) - GameData.gamePaddingW);
         clockSign = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingW + (int)(GameData.gameSignH * 0.75) - GameData.gamePaddingW, GameData.gameBoardW, (int)(GameData.gameSignH * 0.25));
+        clock = new Clock();
+        Thread tClock = new Thread(clock);
         ball.drawBall(g);
+
     }
 
     public void updateBoard(Graphics2D g){
@@ -38,6 +44,22 @@ public class Game {
         g.setColor(Color.WHITE);
         g.draw(board);
         g.setStroke(oldStroke);
+        startGame();
+    }
+
+    public void startGame(){
+        if(!startGame) {
+            if (kl.getKeyPressed(KeyEvent.VK_ENTER) || kl.getKeyPressed(KeyEvent.VK_SPACE)) {
+                startGame = true;
+                pausedGame = false;
+                clock.run();
+            }
+        }
+        if(pausedGame){
+            if (kl.getKeyPressed(KeyEvent.VK_ENTER) || kl.getKeyPressed(KeyEvent.VK_SPACE)) {
+                pausedGame = false;
+            }
+        }
     }
 
     public void sign(Graphics2D g, String time, Rectangle result, Rectangle clock, Controller player1, Controller player2){
