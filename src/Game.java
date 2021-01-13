@@ -6,6 +6,7 @@ public class Game {
     Ball ball;
     Clock clock;
     KListener kl;
+    Thread tClock;
 
     public int score[] = new int[2];
 
@@ -28,12 +29,13 @@ public class Game {
     //1V1
     public Game(Graphics2D g, KListener kl){
         this.kl = kl;
-        ball = new Ball(ballSize,spawnPointX, spawnPointY, GameData.drawSign() * 2, GameData.drawSign() * 2, Color.WHITE);
+        ball = new Ball(ballSize,spawnPointX, spawnPointY, GameData.drawSign() * 10, GameData.drawSign() * 10, Color.WHITE);
         board = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingH, GameData.gameBoardW, GameData.gameBoardH);
         result = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingW, GameData.gameBoardW, (int)(GameData.gameSignH * 0.75) - GameData.gamePaddingW);
         clockSign = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingW + (int)(GameData.gameSignH * 0.75) - GameData.gamePaddingW, GameData.gameBoardW, (int)(GameData.gameSignH * 0.25));
         clock = new Clock();
-        Thread tClock = new Thread(clock);
+        tClock = new Thread(clock);
+//        tClock.start();
         ball.drawBall(g);
 
     }
@@ -52,7 +54,8 @@ public class Game {
             if (kl.getKeyPressed(KeyEvent.VK_ENTER) || kl.getKeyPressed(KeyEvent.VK_SPACE)) {
                 startGame = true;
                 pausedGame = false;
-                clock.run();
+//                clock.run();
+                tClock.start();
             }
         }
         if(pausedGame){
@@ -62,24 +65,26 @@ public class Game {
         }
     }
 
-    public void sign(Graphics2D g, String time, Rectangle result, Rectangle clock, Controller player1, Controller player2){
-        //String topSign = player1.playerName + "   " + score[0] + "-" + score[1] + "   " + player2.playerName;
-        String topSign = player1.playerName + "   " + score[0] + "-" + score[1] + "   " + player2.playerName;
-        //temp
-        String clockSign = time;
+    public void sign(Graphics2D g, String timeStr, Rectangle result, Rectangle clockRect, Controller player1, Controller player2){
+        Rectangle name1Rect = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingW, GameData.gameResultX - GameData.gamePaddingW,(int)(GameData.gameSignH * 0.75) - GameData.gamePaddingW);
+        Rectangle name2Rect = new Rectangle( GameData.gameResultX + GameData.gameResultW, GameData.gamePaddingW, GameData.gameResultX - GameData.gamePaddingW,(int)(GameData.gameSignH * 0.75) - GameData.gamePaddingW);
         g.setColor(Color.WHITE);
-        GameData.drawCenteredString(g,topSign, result, Window.fontTitle);
-        GameData.drawCenteredString(g,clockSign, clock, Window.fontOption);
+
+        GameData.drawCenteredString(g, score[0] + "-" + score[1], result, Window.fontTitle);
+        GameData.drawCenteredString(g, player1.playerName, name1Rect, Window.fontTitle);
+        GameData.drawCenteredString(g, player2.playerName, name2Rect, Window.fontTitle);
+        GameData.drawCenteredString(g,timeStr, clockRect, Window.fontOption);
     }
 
-    public void sign(Graphics2D g, String time, Rectangle result, Rectangle clock, Controller player1, Controller player2, Controller player3, Controller player4){
-        //String topSign = player1.playerName + "   " + score[0] + "-" + score[1] + "   " + player2.playerName;
-        String topSign = player1.playerName + ", " + player2.playerName + "   " + score[0] + "-" + score[1] + "   " + player3.playerName + ", " + player4.playerName;
-        //temp
-        String clockSign = time;
+    public void sign(Graphics2D g, String timeStr, Rectangle result, Rectangle clockRect, Controller player1, Controller player2, Controller player3, Controller player4){
+        Rectangle name1Rect = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingW, GameData.gameResultX - GameData.gamePaddingW,(int)(GameData.gameSignH * 0.75) - GameData.gamePaddingW);
+        Rectangle name2Rect = new Rectangle( GameData.gameResultX + GameData.gameResultW, GameData.gamePaddingW, GameData.gameResultX - GameData.gamePaddingW,(int)(GameData.gameSignH * 0.75) - GameData.gamePaddingW);
         g.setColor(Color.WHITE);
-        GameData.drawCenteredString(g,topSign, result, Window.fontTitle);
-        GameData.drawCenteredString(g,clockSign, clock, Window.fontOption);
+
+        GameData.drawCenteredString(g,score[0] + "-" + score[1], result, Window.fontTitle);
+        GameData.drawCenteredString(g,player1.playerName + ", " + player2.playerName, name1Rect, Window.fontTitle);
+        GameData.drawCenteredString(g,player3.playerName + ", " + player4.playerName, name2Rect, Window.fontTitle);
+        GameData.drawCenteredString(g,timeStr, clockRect, Window.fontOption);
     }
 
 }
