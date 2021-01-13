@@ -8,8 +8,8 @@ public class GameMode2v2AI extends Game{
     AI ai1;
     AI ai2;
 
-    public GameMode2v2AI(Graphics2D g, KListener kl){
-        super(g, kl);
+    public GameMode2v2AI(Graphics2D g, KListener kl, int maxPoints){
+        super(g, kl, maxPoints);
         Bar player1Bar = new Bar(gamePadding,GameData.gamePaddingH + (int)(GameData.gamePaddingH/4 + GameData.startHeight/4), (int)(GameData.startWidth * 0.75), (int)(GameData.startHeight * 0.75), GameData.gamePaddingH, (int)(GameData.gameBoardH / 2 + GameData.gamePaddingH), Color.WHITE);
         Bar player2Bar = new Bar(gamePadding,GameData.gamePaddingH + (int)(GameData.gamePaddingH + GameData.startHeight), (int)(GameData.startWidth * 0.75), (int)(GameData.startHeight * 0.75), (int)(GameData.gameBoardH / 2 + GameData.gamePaddingH), GameData.windowHeight - GameData.gamePaddingW, Color.WHITE);
         Bar ai1Bar = new Bar(GameData.windowWidth - gamePadding - GameData.startWidth, GameData.gamePaddingH + (int) (GameData.gamePaddingH / 4 + GameData.startHeight / 4), (int)(GameData.startWidth * 0.75), (int)(GameData.startHeight * 0.75), GameData.gamePaddingH, (int)(GameData.gameBoardH / 2 + GameData.gamePaddingH), Color.WHITE);
@@ -36,7 +36,12 @@ public class GameMode2v2AI extends Game{
             clock.paused = false;
         }
         else{
-            GameData.drawCenteredString(g,"press enter to start", new Rectangle(GameData.gamePaddingW, GameData.gamePaddingH, GameData.gameBoardW, (int)(GameData.gameBoardH / 2)), Window.fontTitle);
+            if(maxPoints == score[0])
+                winnerSign(g,player1.playerName + player2.playerName);
+            else if(maxPoints == score[1])
+                winnerSign(g,ai1.playerName + ai2.playerName);
+            else
+                GameData.drawCenteredString(g,"press enter to start", new Rectangle(GameData.gamePaddingW, GameData.gamePaddingH, GameData.gameBoardW, (int)(GameData.gameBoardH / 2)), Window.fontTitle);
             clock.paused = true;
         }
         sign(g, clock.getTimeString(), result, clockSign, player1, player2, ai1, ai2);

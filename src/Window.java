@@ -15,10 +15,15 @@ public class Window extends JFrame implements Runnable{
     KListener kl = new KListener();
     Users user = new Users();
     Menu menu = new Menu();
+    LoginForm login;
 
     public static Font fontTitle;
     public static Font fontSubtitle;
     public static Font fontOption;
+
+    boolean isGame;
+
+    int fps;
 
 
     public Window(){
@@ -29,6 +34,8 @@ public class Window extends JFrame implements Runnable{
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.addKeyListener(kl);
+        this.isGame = false;
+        this.fps = 120;
 
         try {
             fontTitle = Font.createFont(Font.TRUETYPE_FONT, new File("bin/baby_blocks.ttf")).deriveFont(30f);
@@ -46,7 +53,8 @@ public class Window extends JFrame implements Runnable{
         g = (Graphics2D)this.getGraphics();
         menu.changeLogged(user.getCurrUser());
 
-        game = new GameMode1v1(g, kl);
+        //game = new GameMode1v1(g, kl, 2);
+        login = new LoginForm(g, kl);
         //game = new GameMode1vAI(g,kl);
         //game = new GameMode2v2AI(g,kl);
 //        clock = new Clock();
@@ -60,7 +68,9 @@ public class Window extends JFrame implements Runnable{
         g.setColor(Color.BLACK);
         g.fillRect(0,0,GameData.windowWidth, GameData.windowHeight);
 
-        game.updateGame(g2,dt);
+        login.drawLoginForm(g2);
+
+        //game.updateGame(g2,dt);
     }
 
 
@@ -71,6 +81,7 @@ public class Window extends JFrame implements Runnable{
 
 
         g.drawImage(dbImage, 0, 0, this);
+
 
 
 
@@ -99,6 +110,11 @@ public class Window extends JFrame implements Runnable{
     public void run(){
         double lastFrame = 0.0;
         while(true){
+            if(isGame)
+                fps = 30;
+            else
+                fps = 120;
+
             double time = Time.getTime();
             double deltaTime = time - lastFrame;
             lastFrame = time;
@@ -106,7 +122,7 @@ public class Window extends JFrame implements Runnable{
             update(deltaTime);
 
             try{
-                Thread.sleep(30);
+                Thread.sleep(fps);
             }catch(Exception e){
             }
         }

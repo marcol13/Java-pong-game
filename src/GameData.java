@@ -21,6 +21,12 @@ public class GameData {
     public static int menuRectSubtitleH = (int)((windowHeight - (menuPaddingH * 2)) * 0.075);
     public static int menuRectOptionH = windowHeight - (menuPaddingH * 2) - menuRectTitleH - menuRectSubtitleH;
 
+    public static int loginPaddingH = (int)(windowHeight * 0.3);
+    public static int loginPaddingW = (int)(windowWidth * 0.25);
+    public static int loginRectH = (int)(windowWidth * 0.07);
+    public static int loginPaddingRectH = (int)(windowHeight * 0.02);
+    public static int loginPaddingRectW = (int)(windowWidth * 0.02);
+
     private static Random rnd = new Random();
 
     public static int drawSign() {
@@ -32,6 +38,15 @@ public class GameData {
     public static void drawCenteredString(Graphics g, String text, Rectangle rect, Font font) {
         FontMetrics metrics = g.getFontMetrics(font);
         int x = rect.x + (rect.width - metrics.stringWidth(text)) / 2;
+        int y = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
+        g.setColor(Color.WHITE);
+        g.setFont(font);
+        g.drawString(text, x, y);
+    }
+
+    public static void drawLeftString(Graphics g, String text, Rectangle rect, Font font){
+        FontMetrics metrics = g.getFontMetrics(font);
+        int x = rect.x + 10;
         int y = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
         g.setColor(Color.WHITE);
         g.setFont(font);

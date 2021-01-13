@@ -21,13 +21,14 @@ public class Game {
     public int ballSize = 10;
     public int spawnPointX = (int)((GameData.gameBoardW - ballSize)/2) + gamePadding;
     public int spawnPointY = (int)((GameData.gameBoardH - ballSize) / 2) + GameData.gamePaddingH;
+    public int maxPoints;
 
     public String mode;
 
     //mode: {"1v1", "1vAI", "2v2AI"}
 
-    //1V1
-    public Game(Graphics2D g, KListener kl){
+    public Game(Graphics2D g, KListener kl, int maxPoints){
+        this.maxPoints = maxPoints;
         this.kl = kl;
         ball = new Ball(ballSize,spawnPointX, spawnPointY, GameData.drawSign() * 10, GameData.drawSign() * 10, Color.WHITE);
         board = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingH, GameData.gameBoardW, GameData.gameBoardH);
@@ -35,9 +36,7 @@ public class Game {
         clockSign = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingW + (int)(GameData.gameSignH * 0.75) - GameData.gamePaddingW, GameData.gameBoardW, (int)(GameData.gameSignH * 0.25));
         clock = new Clock();
         tClock = new Thread(clock);
-//        tClock.start();
         ball.drawBall(g);
-
     }
 
     public void updateBoard(Graphics2D g){
@@ -85,6 +84,13 @@ public class Game {
         GameData.drawCenteredString(g,player1.playerName + ", " + player2.playerName, name1Rect, Window.fontTitle);
         GameData.drawCenteredString(g,player3.playerName + ", " + player4.playerName, name2Rect, Window.fontTitle);
         GameData.drawCenteredString(g,timeStr, clockRect, Window.fontOption);
+    }
+
+    public void winnerSign(Graphics2D g, String winner){
+        Rectangle winnerRect = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingH, GameData.gameBoardW, (int)(GameData.gameBoardH * 0.75));
+        g.setColor(Color.WHITE);
+
+        GameData.drawCenteredString(g, winner.substring(0,1).toUpperCase() + winner.substring(1) + " wins!", winnerRect, Window.fontTitle);
     }
 
 }

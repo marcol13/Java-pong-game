@@ -6,8 +6,8 @@ public class GameMode1v1 extends Game{
     Player player1;
     Player player2;
 
-    public GameMode1v1(Graphics2D g, KListener kl){
-        super(g,kl);
+    public GameMode1v1(Graphics2D g, KListener kl, int maxPoints){
+        super(g,kl,maxPoints);
         Bar player1Bar = new Bar(gamePadding,GameData.gamePaddingH + (int)(GameData.gamePaddingH/2 + GameData.startHeight/2), GameData.startWidth, GameData.startHeight, GameData.gamePaddingH,  GameData.windowHeight - GameData.gamePaddingW, Color.WHITE);
         Bar player2Bar = new Bar(GameData.windowWidth - gamePadding - GameData.startWidth, GameData.gamePaddingH + (int) (GameData.gamePaddingH / 2 + GameData.startHeight / 2), GameData.startWidth, GameData.startHeight, GameData.gamePaddingH, GameData.windowHeight - GameData.gamePaddingW, Color.WHITE);
         player1 = new Player(player1Bar, "unknown", kl, KeyEvent.VK_UP, KeyEvent.VK_DOWN);
@@ -26,7 +26,12 @@ public class GameMode1v1 extends Game{
             clock.paused = false;
         }
         else{
-            GameData.drawCenteredString(g,"press enter to start", board, Window.fontTitle);
+            if(maxPoints == score[0])
+                winnerSign(g,player1.playerName);
+            else if(maxPoints == score[1])
+                winnerSign(g,player2.playerName);
+            else
+                GameData.drawCenteredString(g,"press enter to start", board, Window.fontTitle);
             clock.paused = true;
         }
         sign(g,clock.getTimeString(), result, clockSign, player1, player2);

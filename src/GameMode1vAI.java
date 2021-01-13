@@ -6,8 +6,8 @@ public class GameMode1vAI extends Game{
     Player player;
     AI ai;
 
-    public GameMode1vAI(Graphics2D g, KListener kl){
-        super(g, kl);
+    public GameMode1vAI(Graphics2D g, KListener kl, int maxPoints){
+        super(g, kl, maxPoints);
         Bar playerBar = new Bar(gamePadding,GameData.gamePaddingH + (int)(GameData.gamePaddingH/2 + GameData.startHeight/2), GameData.startWidth, GameData.startHeight, GameData.gamePaddingH, GameData.windowHeight - GameData.gamePaddingW, Color.WHITE);
         Bar aiBar = new Bar(GameData.windowWidth - gamePadding - GameData.startWidth, GameData.gamePaddingH + (int) (GameData.gamePaddingH / 2 + GameData.startHeight / 2), GameData.startWidth, GameData.startHeight, GameData.gamePaddingH, GameData.windowHeight - GameData.gamePaddingW, Color.WHITE);
         player = new Player(playerBar, "unknown", kl, KeyEvent.VK_UP, KeyEvent.VK_DOWN);
@@ -26,7 +26,12 @@ public class GameMode1vAI extends Game{
             clock.paused = false;
         }
         else{
-            GameData.drawCenteredString(g,"press enter to start", board, Window.fontTitle);
+            if(maxPoints == score[0])
+                winnerSign(g,player.playerName);
+            else if(maxPoints == score[1])
+                winnerSign(g,ai.playerName);
+            else
+                GameData.drawCenteredString(g,"press enter to start", board, Window.fontTitle);
             clock.paused = true;
         }
         sign(g,clock.getTimeString(),result, clockSign, player, ai);
