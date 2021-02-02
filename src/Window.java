@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.IOException;
 
 
-public class Window extends JFrame implements Runnable{
+public class Window implements Runnable{
 
     GameMode1v1 game;
 //    GameMode1vAI game;
@@ -16,6 +16,7 @@ public class Window extends JFrame implements Runnable{
     Users user = new Users();
     Menu menu = new Menu();
     LoginForm login;
+    MyFrame myFrame;
 
     public static Font fontTitle;
     public static Font fontSubtitle;
@@ -28,12 +29,8 @@ public class Window extends JFrame implements Runnable{
 
     public Window(){
         //Dodać fullscreen
-        this.setSize(GameData.windowWidth,GameData.windowHeight);
-        this.setTitle(GameData.title);
-        this.setResizable(false);
-        this.setVisible(true);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.addKeyListener(kl);
+        myFrame = new MyFrame();
+
         this.isGame = false;
         this.fps = 120;
 
@@ -50,11 +47,11 @@ public class Window extends JFrame implements Runnable{
             Font fontOption = new Font("TimeRoman", Font.PLAIN, GameData.fontSize);
         }
 
-        g = (Graphics2D)this.getGraphics();
+        g = (Graphics2D)myFrame.getGraphics();
         menu.changeLogged(user.getCurrUser());
 
         //game = new GameMode1v1(g, kl, 2);
-        login = new LoginForm(g, kl);
+        login = new LoginForm(g, MyFrame.kl, myFrame);
         //game = new GameMode1vAI(g,kl);
         //game = new GameMode2v2AI(g,kl);
 //        clock = new Clock();
@@ -75,12 +72,13 @@ public class Window extends JFrame implements Runnable{
 
 
     public void update(double dt){
-        Image dbImage = createImage(getWidth(), getHeight());
+        Image dbImage = myFrame.createImage(myFrame.getWidth(), myFrame.getHeight());
         Graphics dbg = dbImage.getGraphics();
         this.draw(dbg,dt);
 
 
-        g.drawImage(dbImage, 0, 0, this);
+        g.drawImage(dbImage, 0, 0, myFrame);
+
 
 
 

@@ -1,7 +1,8 @@
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class LoginForm {
+public class LoginForm{
 
     KListener kl;
 
@@ -17,8 +18,13 @@ public class LoginForm {
     String typeLogin;
     String typePassword;
 
-    public LoginForm(Graphics2D g, KListener kl){
+    MyFrame frame;
+    JLabel label;
+    JPanel panel;
+
+    public LoginForm(Graphics2D g, KListener kl, MyFrame frame){
         this.kl = kl;
+        this.frame = frame;
         loginRect = new OptionRect(GameData.loginPaddingW, GameData.loginPaddingH, GameData.windowWidth - 2 * GameData.loginPaddingW, GameData.loginRectH, Color.WHITE);
         passwordRect = new OptionRect(GameData.loginPaddingW, GameData.loginPaddingH + GameData.loginRectH + GameData.loginPaddingRectH, GameData.windowWidth - 2 * GameData.loginPaddingW, GameData.loginRectH, Color.WHITE);
         loginButton = new OptionRect(GameData.loginPaddingW, GameData.loginPaddingH + 2 * GameData.loginRectH + 8 * GameData.loginPaddingRectH, (GameData.windowWidth - 2 * GameData.loginPaddingW) / 2 - GameData.loginPaddingRectW , GameData.loginRectH, Color.WHITE);
@@ -29,6 +35,12 @@ public class LoginForm {
         options[1] = passwordRect;
         options[2] = loginButton;
         options[3] = registerButton;
+
+        label = new JLabel("jakis tekst", JLabel.LEFT);
+        label.setBounds(10,10,200,200);
+//        panel = new JPanel();
+
+
     }
 
 
@@ -41,6 +53,16 @@ public class LoginForm {
         GameData.drawCenteredString(g, "register", registerButton, Window.fontTitle);
         GameData.drawLeftString(g, "type login", loginRect, Window.fontTitle);
         GameData.drawLeftString(g, "type password", passwordRect, Window.fontTitle);
+        frame.add(label);
+        label.setForeground(Color.WHITE);
+        frame.setVisible(true);
+//        panel.setBackground(Color.BLUE);
+//        label.setBounds(10,20,80,25);
+//
+//        panel.setBackground(Color.BLUE);
+//        panel.setLayout(null);
+//        panel.add(label);
+//        frame.add(label);
     }
 
     public void drawLoginRect(Graphics2D g){
