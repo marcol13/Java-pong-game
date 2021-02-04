@@ -2,8 +2,8 @@ import java.awt.*;
 import java.util.Random;
 
 public class GameData {
-    public static int windowWidth = 800;
-    public static int windowHeight = 600;
+    public static int windowWidth = 1920;
+    public static int windowHeight = 1080;
     public static final String title = "Pong pong pong pong";
     public static int fontSize = (int)((windowWidth * windowWidth) / windowHeight * 0.01875);
     public static int menuPaddingW = 20;

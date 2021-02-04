@@ -6,7 +6,9 @@ public class MyFrame extends JFrame {
     public static KListener kl = new KListener();
 
     MyFrame() {
-        this.setSize(GameData.windowWidth,GameData.windowHeight);
+//        this.setSize(GameData.windowWidth,GameData.windowHeight);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+//        this.setUndecorated(true);
         this.setTitle(GameData.title);
         this.setResizable(false);
         this.setVisible(true);

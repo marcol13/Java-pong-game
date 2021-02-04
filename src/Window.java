@@ -108,16 +108,14 @@ public class Window implements Runnable{
     public void run(){
         double lastFrame = 0.0;
         while(true){
-            if(isGame)
+            if(isGame) {
                 fps = 30;
-            else
-                fps = 120;
+                double time = Time.getTime();
+                double deltaTime = time - lastFrame;
+                lastFrame = time;
+                update(deltaTime);
+            }
 
-            double time = Time.getTime();
-            double deltaTime = time - lastFrame;
-            lastFrame = time;
-
-            update(deltaTime);
 
             try{
                 Thread.sleep(fps);
