@@ -14,13 +14,14 @@ public class Window implements Runnable{
     Graphics2D g;
     KListener kl = new KListener();
     Users user = new Users();
-    Menu menu = new Menu();
+    Menu menu;
     LoginForm login;
     MyFrame myFrame;
 
     public static Font fontTitle;
     public static Font fontSubtitle;
     public static Font fontOption;
+    public static Font fontSecond;
 
     boolean isGame;
 
@@ -35,10 +36,13 @@ public class Window implements Runnable{
         this.fps = 120;
 
         try {
-            fontTitle = Font.createFont(Font.TRUETYPE_FONT, new File("bin/baby_blocks.ttf")).deriveFont(30f);
+            fontTitle = Font.createFont(Font.TRUETYPE_FONT, new File("bin/baby_blocks.ttf")).deriveFont(80f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("bin/baby_blocks.ttf")));
-            System.out.println(ge);
+
+            fontSecond = Font.createFont(Font.TRUETYPE_FONT, new File("bin/dogica.otf")).deriveFont(40f);
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("bin/dogica.otf")));
+
             fontSubtitle = new Font("Baby blocks", Font.PLAIN, (int)(GameData.fontSize));
             fontOption = new Font("Baby blocks", Font.PLAIN, (int)(GameData.fontSize * 1.5));
         } catch (IOException |FontFormatException e) {
@@ -48,10 +52,11 @@ public class Window implements Runnable{
         }
 
         g = (Graphics2D)myFrame.getGraphics();
+        menu = new Menu(g, myFrame);
         menu.changeLogged(user.getCurrUser());
 
         //game = new GameMode1v1(g, kl, 2);
-        login = new LoginForm(g, MyFrame.kl, myFrame);
+//        login = new LoginForm(g, MyFrame.kl, myFrame);
         //game = new GameMode1vAI(g,kl);
         //game = new GameMode2v2AI(g,kl);
 //        clock = new Clock();
@@ -86,7 +91,7 @@ public class Window implements Runnable{
         /*g.setColor(Color.BLACK);
         g.fillRect(0,0,GameData.windowWidth, GameData.windowHeight);
         g.setColor(Color.WHITE);
-        menu.drawMenu(g);
+//        menu.drawMenu(g);
 
         if(kl.getKeyPressed(KeyEvent.VK_UP)){
             if(menu.currOption > 0)
@@ -108,16 +113,14 @@ public class Window implements Runnable{
     public void run(){
         double lastFrame = 0.0;
         while(true){
-            if(isGame)
+            if(isGame) {
                 fps = 30;
-            else
-                fps = 120;
+                double time = Time.getTime();
+                double deltaTime = time - lastFrame;
+                lastFrame = time;
+                update(deltaTime);
+            }
 
-            double time = Time.getTime();
-            double deltaTime = time - lastFrame;
-            lastFrame = time;
-
-            update(deltaTime);
 
             try{
                 Thread.sleep(fps);

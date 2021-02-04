@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -15,15 +16,24 @@ public class Menu {
     Rectangle menuRectSubtitle = new Rectangle(GameData.menuPaddingW,GameData.menuRectTitleH + GameData.menuPaddingH, GameData.windowWidth - GameData.menuPaddingW * 2, GameData.menuRectSubtitleH);
     Rectangle menuRectOptions = new Rectangle(GameData.menuPaddingW, GameData.menuRectTitleH + GameData.menuRectSubtitleH + GameData.menuPaddingH, GameData.windowWidth - GameData.menuPaddingW * 2, GameData.menuRectOptionH);
 
-    public Menu(){
+    MyFrame frame;
 
+    public Menu(Graphics g, MyFrame frame){
+        this.frame = frame;
+        drawMenu(g);
 
     }
 
     public void drawMenu(Graphics g){
         GameData.drawCenteredString(g, title, menuRectTitle, Window.fontTitle);
         GameData.drawCenteredString(g, logged, menuRectSubtitle, Window.fontSubtitle);
-        GameData.drawCenteredArrStrings(g, options, menuRectOptions, Window.fontOption, currOption);
+        GameData.drawCenteredArrStrings(g, options, menuRectOptions, Window.fontSecond, currOption);
+        buttons();
+    }
+
+    public void buttons(){
+        JButton button = new JButton("abcd");
+        frame.add(button);
     }
 
     public static void changeLogged(String user){

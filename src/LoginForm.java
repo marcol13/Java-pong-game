@@ -40,7 +40,7 @@ public class LoginForm{
         label.setBounds(10,10,200,200);
 //        panel = new JPanel();
 
-
+        drawLoginForm(g);
     }
 
 
