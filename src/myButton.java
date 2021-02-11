@@ -34,8 +34,8 @@ public class myButton extends JButton{
             }
         });
 
-        button.addActionListener(e -> System.exit(0));
         button.setVisible(true);
+        button.addActionListener(new ButtonActionListener());
         panel.add(button);
         button.repaint();
 

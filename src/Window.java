@@ -14,9 +14,9 @@ public class Window implements Runnable{
     Graphics2D g;
     KListener kl = new KListener();
     Users user = new Users();
-    Menu menu;
-    LoginForm login;
-    MyFrame myFrame;
+    public static Menu menu;
+    public static LoginForm login;
+    public static MyFrame myFrame;
 
     public static Font fontTitle;
     public static Font fontSubtitle;
@@ -52,8 +52,8 @@ public class Window implements Runnable{
         }
 
         g = (Graphics2D)myFrame.getGraphics();
-        menu = new Menu(g, myFrame);
-        menu.changeLogged(user.getCurrUser());
+        menu = new Menu(myFrame);
+        //menu.changeLogged(user.getCurrUser());
 
         //game = new GameMode1v1(g, kl, 2);
 //        login = new LoginForm(g, MyFrame.kl, myFrame);
@@ -70,7 +70,7 @@ public class Window implements Runnable{
         g.setColor(Color.BLACK);
         g.fillRect(0,0,GameData.windowWidth, GameData.windowHeight);
 
-        login.drawLoginForm(g2);
+        //login.drawLoginForm(g2);
 
         //game.updateGame(g2,dt);
     }

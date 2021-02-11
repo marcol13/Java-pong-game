@@ -1,9 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
-public class Menu {
+public class Menu{
 
     public static String title = "PONG GAME";
     public static String logged = "guest";
@@ -30,7 +32,7 @@ public class Menu {
     JLabel titleLabel;
     JLabel userLabel;
 
-    public Menu(Graphics g, MyFrame frame){
+    public Menu(MyFrame frame){
         this.frame = frame;
 
         titlePanel = new JPanel();
@@ -43,7 +45,7 @@ public class Menu {
         menuPanel.setBounds(menuRectOptions);
         menuPanel.setBackground(Color.BLACK);
 
-        drawMenu(g);
+        drawMenu();
         setButtons();
 
         frame.add(titlePanel);
@@ -62,14 +64,9 @@ public class Menu {
         statsBtn = new myButton(new Rectangle(GameData.windowWidth * 3/8,  2 * GameData.menuRectOptionH / 5, GameData.windowWidth / 4, GameData.menuRectOptionH / 5),"stats", menuPanel);
         userBtn = new myButton(new Rectangle(GameData.windowWidth * 3/8, 3 * GameData.menuRectOptionH / 5, GameData.windowWidth / 4, GameData.menuRectOptionH / 5),"user", menuPanel);
         exitBtn = new myButton(new Rectangle(GameData.windowWidth * 3/8,  4 * GameData.menuRectOptionH / 5, GameData.windowWidth / 4, GameData.menuRectOptionH / 5),"exit", menuPanel);
-
-//        playBtn = new myButton(new Rectangle(GameData.windowWidth * 3/8, GameData.menuRectTitleH + GameData.menuRectSubtitleH + GameData.menuPaddingH, GameData.windowWidth / 4, GameData.menuRectOptionH / 5),"play", menuPanel);
-        exitBtn.addActionListener(e -> System.exit(0));
-
-
     }
 
-    public void drawMenu(Graphics g){
+    public void drawMenu(){
         titleLabel = new JLabel("PONG GAME", SwingConstants.CENTER);
         titleLabel.setBounds(new Rectangle(0, GameData.menuPaddingH, GameData.windowWidth, GameData.menuRectTitleH));
         titleLabel.setBackground(Color.BLACK);
@@ -86,25 +83,16 @@ public class Menu {
 
         titlePanel.add(titleLabel);
         titlePanel.add(userLabel);
-
-//        GameData.drawCenteredString(g, title, menuRectTitle, Window.fontTitle);
-//        GameData.drawCenteredString(g, logged, menuRectSubtitle, Window.fontSubtitle);
-//        GameData.drawCenteredArrStrings(g, options, menuRectOptions, Window.fontSecond, currOption);
-//        buttons();
-    }
-
-    public void buttons(){
-        JButton button = new JButton("abcd");
-        button.setBounds(menuRectTitle);
-        button.setBackground(Color.BLACK);
-        button.setForeground(Color.WHITE);
-        button.setBorderPainted(false);
-        button.setFont(Window.fontOption);
-        frame.add(button);
     }
 
     public static void changeLogged(String user){
         logged = "Hello " + user + "!";
         System.out.println(logged);
     }
+
+//    public void clearMenu(){
+//        titlePanel.clearRect(0, 0, (int)panel.getSize().getWidth(), (int)panel.getSize().getHeight);
+//        menuPanel.clearRect(0, 0, (int)panel.getSize().getWidth(), (int)panel.getSize().getHeight);
+//
+//    }
 }

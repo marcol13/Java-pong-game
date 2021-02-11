@@ -19,4 +19,9 @@ public class MyFrame extends JFrame {
         this.getContentPane().setBackground(Color.BLACK);
         this.getContentPane().setLayout(null);
     }
+
+    public void clearFrame(){
+        this.getContentPane().removeAll();
+        this.repaint();
+    }
 }
