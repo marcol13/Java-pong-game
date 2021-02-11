@@ -17,5 +17,6 @@ public class MyFrame extends JFrame {
         this.addKeyListener(kl);
 
         this.getContentPane().setBackground(Color.BLACK);
+        this.getContentPane().setLayout(null);
     }
 }
