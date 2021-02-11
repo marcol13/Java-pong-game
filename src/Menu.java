@@ -74,7 +74,7 @@ public class Menu{
         titleLabel.setFont(Window.fontTitle);
         titleLabel.setVisible(true);
 
-        userLabel = new JLabel("Hello Guest!", SwingConstants.CENTER);
+        userLabel = new JLabel("Hello " + Window.curr_user + "!", SwingConstants.CENTER);
         userLabel.setBounds(new Rectangle(0, GameData.menuPaddingH + GameData.menuRectTitleH, GameData.windowWidth, GameData.menuRectSubtitleH));
         userLabel.setBackground(Color.BLACK);
         userLabel.setForeground(Color.WHITE);

@@ -22,6 +22,9 @@ public class Window implements Runnable{
     public static Font fontSubtitle;
     public static Font fontOption;
     public static Font fontSecond;
+    public static Font fontSecondSmall;
+
+    public static String curr_user;
 
     boolean isGame;
 
@@ -34,6 +37,7 @@ public class Window implements Runnable{
 
         this.isGame = false;
         this.fps = 120;
+        curr_user = "Guest";
 
         try {
             fontTitle = Font.createFont(Font.TRUETYPE_FONT, new File("bin/baby_blocks.ttf")).deriveFont(80f);
@@ -45,6 +49,7 @@ public class Window implements Runnable{
 
             fontSubtitle = new Font("Baby blocks", Font.PLAIN, (int)(GameData.fontSize));
             fontOption = new Font("Baby blocks", Font.PLAIN, (int)(GameData.fontSize * 1.5));
+            fontSecondSmall = new Font("Dogica", Font.PLAIN, (int)(GameData.fontSize * 0.4));
         } catch (IOException |FontFormatException e) {
             Font fontTitle = new Font("TimeRoman", Font.PLAIN, GameData.fontSize * 2);
             Font fontSubtitle = new Font("TimeRoman", Font.PLAIN, (int)(GameData.fontSize * 0.75));

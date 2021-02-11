@@ -21,9 +21,9 @@ public class GameData {
     public static int menuRectSubtitleH = (int)((windowHeight - (menuPaddingH * 2)) * 0.075);
     public static int menuRectOptionH = windowHeight - (menuPaddingH * 2) - menuRectTitleH - menuRectSubtitleH;
 
-    public static int loginPaddingH = (int)(windowHeight * 0.3);
+    public static int loginPaddingH = (int)(windowHeight * 0.25);
     public static int loginPaddingW = (int)(windowWidth * 0.25);
-    public static int loginRectH = (int)(windowWidth * 0.07);
+    public static int loginRectH = (int)(windowWidth * 0.04);
     public static int loginPaddingRectH = (int)(windowHeight * 0.02);
     public static int loginPaddingRectW = (int)(windowWidth * 0.02);
 

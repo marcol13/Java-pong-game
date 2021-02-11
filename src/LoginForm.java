@@ -4,12 +4,9 @@ import java.awt.event.KeyEvent;
 
 public class LoginForm{
 
-    KListener kl;
-
-    OptionRect loginRect;
-    OptionRect passwordRect;
-    OptionRect loginButton;
-    OptionRect registerButton;
+    boolean logged_good;
+    boolean login_empty;
+    boolean already_exist;
 
     OptionRect [] options;
 
@@ -22,11 +19,23 @@ public class LoginForm{
 
     myButton loginBtn;
     myButton registerBtn;
+    myButton backBtn;
 
     JPanel loginPanel;
 
+    JTextField loginTextField;
+
+    JPasswordField passwordField;
+
+    JLabel nickLabel;
+    JLabel passLabel;
+    JLabel errorLabel;
+
     public LoginForm(MyFrame frame){
         this.frame = frame;
+        this.logged_good = false;
+        this.login_empty = false;
+        this.already_exist = false;
 
         loginPanel = new JPanel();
         loginPanel.setLayout(null);
@@ -56,10 +65,52 @@ public class LoginForm{
     }
 
     public void setLoginForm(){
+        nickLabel = new JLabel("NICKNAME", SwingConstants.CENTER);
+        nickLabel.setBounds(new Rectangle(0, GameData.loginPaddingH - GameData.loginRectH - GameData.loginPaddingRectH, GameData.windowWidth , GameData.loginRectH));
+        nickLabel.setBackground(Color.BLACK);
+        nickLabel.setForeground(Color.WHITE);
+        nickLabel.setFont(Window.fontSecond);
+        nickLabel.setVisible(true);
 
-        loginBtn = new myButton(new Rectangle(GameData.loginPaddingW, GameData.loginPaddingH + 2 * GameData.loginRectH + 8 * GameData.loginPaddingRectH, (GameData.windowWidth - 2 * GameData.loginPaddingW) / 2 - GameData.loginPaddingRectW , GameData.loginRectH), "log in", loginPanel);
+        passLabel = new JLabel("PASSWORD", SwingConstants.CENTER);
+        passLabel.setBounds(new Rectangle(0, GameData.loginPaddingH + GameData.loginRectH + 2 * GameData.loginPaddingRectH, GameData.windowWidth, GameData.loginRectH));
+        passLabel.setBackground(Color.BLACK);
+        passLabel.setForeground(Color.WHITE);
+        passLabel.setFont(Window.fontSecond);
+        passLabel.setVisible(true);
+
+        errorLabel = new JLabel("", SwingConstants.CENTER);
+        errorLabel.setBounds(new Rectangle(0, GameData.loginPaddingH + GameData.loginRectH + 7 * GameData.loginPaddingRectH + 2 * GameData.loginRectH, GameData.windowWidth, GameData.loginRectH));
+        errorLabel.setBackground(Color.BLACK);
+        errorLabel.setForeground(Color.RED);
+        errorLabel.setFont(Window.fontSecondSmall);
+        errorLabel.setVisible(true);
+
+        loginTextField = new JTextField();
+        loginTextField.setBounds(new Rectangle(GameData.loginPaddingW, GameData.loginPaddingH, GameData.windowWidth - 2 * GameData.loginPaddingW, GameData.loginRectH));
+        loginTextField.setFont(Window.fontSecond);
+        loginTextField.setForeground(Color.WHITE);
+        loginTextField.setBackground(Color.BLACK);
+        loginTextField.setCaretColor(Color.WHITE);
+
+        passwordField = new JPasswordField();
+        passwordField.setBounds(new Rectangle(GameData.loginPaddingW, GameData.loginPaddingH + GameData.loginRectH + 3 * GameData.loginPaddingRectH + GameData.loginRectH, GameData.windowWidth - 2 * GameData.loginPaddingW, GameData.loginRectH));
+        passwordField.setFont(Window.fontSecond);
+        passwordField.setForeground(Color.WHITE);
+        passwordField.setBackground(Color.BLACK);
+        passwordField.setCaretColor(Color.WHITE);
 
 
+        loginPanel.add(nickLabel);
+        loginPanel.add(passLabel);
+        loginPanel.add(errorLabel);
+        loginPanel.add(loginTextField);
+        loginPanel.add(passwordField);
+
+
+        loginBtn = new myButton(new Rectangle(GameData.loginPaddingW, GameData.loginPaddingH + 4 * GameData.loginRectH + 10 * GameData.loginPaddingRectH, (GameData.windowWidth - 2 * GameData.loginPaddingW) / 2 - GameData.loginPaddingRectW , GameData.loginRectH), "login", loginPanel);
+        registerBtn = new myButton(new Rectangle(GameData.loginPaddingW + (GameData.windowWidth - 2 * GameData.loginPaddingW) / 2 + GameData.loginPaddingRectW, GameData.loginPaddingH + 4 * GameData.loginRectH + 10 * GameData.loginPaddingRectH, (GameData.windowWidth - 2 * GameData.loginPaddingW) / 2 - GameData.loginPaddingRectW , GameData.loginRectH),"register", loginPanel);
+        backBtn = new myButton(new Rectangle(GameData.menuPaddingW, GameData.menuPaddingH, 200 , GameData.loginRectH) ,"back", loginPanel);
     }
 
 
@@ -95,29 +146,8 @@ public class LoginForm{
             options[i].drawRect(g);
         }
 
-        loginRect.drawRect(g);
-        passwordRect.drawRect(g);
-        loginButton.drawRect(g);
-        registerButton.drawRect(g);
     }
 
-    public void changeOption(){
-        if(kl.getKeyPressed(KeyEvent.VK_UP)){
-            if(currOption > 0)
-                currOption--;
-        }
-        if(kl.getKeyPressed(KeyEvent.VK_DOWN)){
-            if(currOption < options.length - 1)
-                currOption++;
-        }
-        /*if(kl.getKeyPressed(KeyEvent.VK_ENTER) || kl.getKeyPressed(KeyEvent.VK_SPACE)){
-            if(menu.currOption == 0){
-
-            }
-            if(menu.currOption == 5)
-                System.exit(0);
-        }*/
-    }
 
 
 
