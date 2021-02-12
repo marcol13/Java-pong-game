@@ -42,7 +42,7 @@ public class Ball {
         if(x <= 0 || x + size >= GameData.windowWidth - GameData.gamePaddingW)
             vx = -vx;
         else {
-            if (x + vx + size > GameData.windowWidth - GameData.gamePaddingW) {
+            if (x + vx + size > GameData.windowWidth - GameData.gamePaddingW * 3 / 2) {
                 vx = -vx;
                 score[0]++;
                 Game.pausedGame = true;

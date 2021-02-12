@@ -16,7 +16,7 @@ public class DrawGame implements Runnable{
 
     int fps;
 
-    public DrawGame(MyFrame frame, int gameMode, int maxPoints){
+    public DrawGame(MyFrame frame, int gameMode, int maxPoints, String playerName1){
         isGame = true;
         this.frame = frame;
         this.fps = 30;
@@ -27,13 +27,26 @@ public class DrawGame implements Runnable{
 
         switch (gameMode) {
             case 0 -> {
-                game0 = new GameMode1vAI(g, MyFrame.kl, maxPoints, Window.curr_user);
+                game0 = new GameMode1vAI(g, MyFrame.kl, maxPoints, playerName1);
             }
+        }
+    }
+
+    public DrawGame(MyFrame frame, int gameMode, int maxPoints, String playerName1, String playerName2){
+        isGame = true;
+        this.frame = frame;
+        this.fps = 30;
+        this.gameMode = gameMode;
+
+        g = (Graphics2D)frame.getGraphics();
+        frame.requestFocus();
+
+        switch (gameMode) {
             case 1 -> {
-                game1 = new GameMode1v1(g, MyFrame.kl, maxPoints);
+                game1 = new GameMode1v1(g, MyFrame.kl, maxPoints, playerName1, playerName2);
             }
             case 2 -> {
-                game2 = new GameMode2v2AI(g, MyFrame.kl, maxPoints);
+                game2 = new GameMode2v2AI(g, MyFrame.kl, maxPoints, playerName1, playerName2);
             }
         }
     }
@@ -67,17 +80,39 @@ public class DrawGame implements Runnable{
 
     public void run(){
         double lastFrame = 0.0;
-        while(true){
-            if(isGame) {
-                double time = Time.getTime();
-                double deltaTime = time - lastFrame;
-                lastFrame = time;
-                update(deltaTime);
-            }
+        while(isGame){
+            double time = Time.getTime();
+            double deltaTime = time - lastFrame;
+            lastFrame = time;
+            update(deltaTime);
             try{
                 Thread.sleep(fps);
             }catch(Exception e){
             }
         }
+
+        if(Game.curr_user_wins) {
+            for (int i = 0; i < Window.players * 3; i += 3) {
+                if (Window.userInfo[i].equals(Window.curr_user)) {
+                    int temp = Integer.parseInt(Window.userInfo[i + 1]);
+                    temp += 1;
+                    Window.userInfo[i+1] = Integer.toString(temp);
+                    break;
+                }
+            }
+        }
+        else{
+            for(int i = 0; i < Window.players * 3; i += 3){
+                if(Window.userInfo[i].equals(Window.curr_user)){
+                    int temp = Integer.parseInt(Window.userInfo[i+2]);
+                    temp += 1;
+                    Window.userInfo[i+2] = Integer.toString(temp);
+                    break;
+                }
+            }
+        }
+        PlayerInfo.savePlayersInfo("bin/data/users.txt");
+        Window.myFrame.clearFrame();
+        Window.menu = new Menu(Window.myFrame);
     }
 }

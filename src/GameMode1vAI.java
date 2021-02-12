@@ -26,10 +26,14 @@ public class GameMode1vAI extends Game{
             clock.paused = false;
         }
         else{
-            if(maxPoints == score[0])
-                winnerSign(g,player.playerName);
-            else if(maxPoints == score[1])
-                winnerSign(g,ai.playerName);
+            if(maxPoints == score[0]) {
+                winnerSign(g, player.playerName);
+                Game.curr_user_wins = true;
+            }
+            else if(maxPoints == score[1]) {
+                winnerSign(g, ai.playerName);
+                Game.curr_user_wins = false;
+            }
             else
                 GameData.drawCenteredString(g,"press enter to start", board, Window.fontTitle);
             clock.paused = true;

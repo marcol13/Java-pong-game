@@ -104,12 +104,62 @@ public class ButtonActionListener implements ActionListener {
 
         else if(ch.equals("START GAME")){
             String maxPoints = Window.playSettings.maxScoreField.getText();
-            if(maxPoints == ""){
-
+            String nickname;
+            boolean readyToGame = false;
+            int points = 0;
+            if(Window.gameModeInt == 0) {
+                if (maxPoints.length() < 1) {
+                    Window.playSettings.errorField.setText("TYPE SOMETHING");
+                    Window.myFrame.repaint();
+                }
+                else {
+                    try {
+                        points = Integer.parseInt(maxPoints);
+                        if (points < 1) {
+                            Window.playSettings.errorField.setText("INCORRECT DATA");
+                            Window.myFrame.repaint();
+                        } else {
+                            readyToGame = true;
+                        }
+                    } catch (Exception ex) {
+                        Window.playSettings.errorField.setText("NOT A NUMBER");
+                        Window.myFrame.repaint();
+                    }
+                }
+                if(readyToGame){
+                    Window.myFrame.clearFrame();
+                    Thread t1 = new Thread(new DrawGame(Window.myFrame, Window.gameModeInt, points, Window.curr_user));
+                    t1.start();
+                }
             }
-            Window.myFrame.clearFrame();
-            Thread t1 = new Thread(new DrawGame(Window.myFrame, Window.gameModeInt, 5));
-            t1.start();
+            else{
+                nickname = Window.playSettings.player2TextField.getText();
+                if (maxPoints.length() < 1 || nickname.length() < 1) {
+                    Window.playSettings.errorField.setText("TYPE SOMETHING");
+                    Window.myFrame.repaint();
+                }
+                else {
+                    try {
+                        points = Integer.parseInt(maxPoints);
+                        if (points < 1) {
+                            Window.playSettings.errorField.setText("INCORRECT DATA");
+                            Window.myFrame.repaint();
+                        } else {
+                            readyToGame = true;
+                        }
+                    } catch (Exception ex) {
+                        Window.playSettings.errorField.setText("NOT A NUMBER");
+                        Window.myFrame.repaint();
+                    }
+                }
+                if(readyToGame){
+                    Window.myFrame.clearFrame();
+                    Thread t1 = new Thread(new DrawGame(Window.myFrame, Window.gameModeInt, points, Window.curr_user, nickname));
+                    t1.start();
+                }
+            }
+
         }
     }
+
 }

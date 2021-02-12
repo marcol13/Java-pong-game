@@ -28,6 +28,7 @@ public class Window{
 
     public static String curr_user;
     public static String [] userInfo;
+    public static String [] pass;
 
     int fps;
     public static int players;
@@ -74,6 +75,7 @@ public class Window{
     public static void updatePlayers(){
         players = PlayerInfo.users_quantity("bin/data/users.txt") / 4;
         userInfo = new String[players * 3];
+        pass = new String[players];
         PlayerInfo.getPlayerInfo("bin/data/users.txt");
     }
 

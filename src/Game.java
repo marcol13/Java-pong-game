@@ -16,6 +16,8 @@ public class Game {
 
     boolean startGame = false;
     public static boolean pausedGame = true;
+    public static boolean endGame;
+    public static boolean curr_user_wins = false;
 
     public int gamePadding = 30;
     public int ballSize = 20;
@@ -30,6 +32,7 @@ public class Game {
     public Game(Graphics2D g, KListener kl, int maxPoints){
         this.maxPoints = maxPoints;
         this.kl = kl;
+        endGame = false;
         ball = new Ball(ballSize,spawnPointX, spawnPointY, GameData.drawSign() * 10, GameData.drawSign() * 10, Color.WHITE);
         board = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingH * 3 / 2, GameData.gameBoardW, GameData.gameBoardH);
         result = new Rectangle(GameData.gamePaddingW, 3 * GameData.gamePaddingW, GameData.gameBoardW, (int)(GameData.gameSignH * 0.75) - GameData.gamePaddingW);
@@ -58,7 +61,12 @@ public class Game {
             }
         }
         if(pausedGame){
-            if (kl.getKeyPressed(KeyEvent.VK_ENTER) || kl.getKeyPressed(KeyEvent.VK_SPACE)) {
+            if(endGame){
+                if (kl.getKeyPressed(KeyEvent.VK_ENTER) || kl.getKeyPressed(KeyEvent.VK_SPACE)) {
+                    DrawGame.isGame = false;
+                }
+            }
+            else if (kl.getKeyPressed(KeyEvent.VK_ENTER) || kl.getKeyPressed(KeyEvent.VK_SPACE)) {
                 pausedGame = false;
             }
         }
@@ -81,8 +89,8 @@ public class Game {
         g.setColor(Color.WHITE);
 
         GameData.drawCenteredString(g,score[0] + "-" + score[1], result, Window.fontTitle);
-        GameData.drawCenteredString(g,player1.playerName + ", " + player2.playerName, name1Rect, Window.fontTitle);
-        GameData.drawCenteredString(g,player3.playerName + ", " + player4.playerName, name2Rect, Window.fontTitle);
+        GameData.drawCenteredString(g,player1.playerName + ", " + player2.playerName, name1Rect, Window.fontSecond);
+        GameData.drawCenteredString(g,player3.playerName + ", " + player4.playerName, name2Rect, Window.fontSecond);
         GameData.drawCenteredString(g,timeStr, clockRect, Window.fontOption);
     }
 
@@ -90,7 +98,7 @@ public class Game {
         Rectangle winnerRect = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingH, GameData.gameBoardW, (int)(GameData.gameBoardH * 0.75));
         g.setColor(Color.WHITE);
 
-        GameData.drawCenteredString(g, winner.substring(0,1).toUpperCase() + winner.substring(1) + " wins!", winnerRect, Window.fontTitle);
+        endGame = true;
+        GameData.drawCenteredString(g, winner.substring(0,1).toUpperCase() + winner.substring(1) + " wins!", winnerRect, Window.fontSecond);
     }
-
 }

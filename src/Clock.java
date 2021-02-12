@@ -8,6 +8,7 @@ public class Clock implements Runnable{
 
     boolean started;
     public boolean paused;
+    public boolean stoped;
 
     Timer timer = new Timer();
     TimerTask task = new TimerTask(){

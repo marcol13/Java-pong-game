@@ -15,7 +15,9 @@ public class PlaySettings {
     JLabel modeTitleLabel;
     JLabel maxPointsLabel;
     JLabel gameModeLabel;
+    JLabel errorField;
 
+    JTextField player2TextField;
     JTextField maxScoreField;
 
     Icon player1Icon;
@@ -83,7 +85,7 @@ public class PlaySettings {
                 playPanel.add(player1IconLabel);
                 playPanel.add(cpu1IconLabel);
 
-                startGameBtn = new myButton(new Rectangle(GameData.windowWidth / 3, GameData.windowHeight - GameData.menuPaddingH - 150 , GameData.windowWidth / 3 , GameData.loginRectH) ,"start game", playPanel);
+//                startGameBtn = new myButton(new Rectangle(GameData.windowWidth / 3, GameData.windowHeight - GameData.menuPaddingH - 150 , GameData.windowWidth / 3 , GameData.loginRectH) ,"start game", playPanel);
             }
             case 1 -> {
                 modeTitleLabel.setText("Player VS Player");
@@ -98,7 +100,7 @@ public class PlaySettings {
                 player2IconLabel.setBounds(new Rectangle(GameData.windowWidth * 9 / 10 - player2Icon.getIconWidth(), GameData.windowHeight / 2 - 3 * GameData.loginRectH, player2Icon.getIconWidth(), player2Icon.getIconHeight()));
                 player2IconLabel.setVisible(true);
 
-                JTextField player2TextField = new JTextField();
+                player2TextField = new JTextField();
                 player2TextField.setBounds(new Rectangle(GameData.loginPaddingW * 3 / 2, GameData.windowHeight / 2 -  GameData.loginRectH, GameData.windowWidth - 3 * GameData.loginPaddingW, GameData.loginRectH));
                 player2TextField.setFont(Window.fontSecond);
                 player2TextField.setForeground(Color.WHITE);
@@ -116,7 +118,7 @@ public class PlaySettings {
                 playPanel.add(player2TextField);
                 playPanel.add(player2Label);
 
-                startGameBtn = new myButton(new Rectangle(GameData.windowWidth / 3, GameData.windowHeight - GameData.menuPaddingH - 150 , GameData.windowWidth / 3 , GameData.loginRectH) ," start game ", playPanel);
+//                startGameBtn = new myButton(new Rectangle(GameData.windowWidth / 3, GameData.windowHeight - GameData.menuPaddingH - 150 , GameData.windowWidth / 3 , GameData.loginRectH) ," start game ", playPanel);
             }
             case 2 -> {
                 modeTitleLabel.setText("2 Players VS 2 CPUs");
@@ -143,7 +145,7 @@ public class PlaySettings {
                 cpu2IconLabel.setBounds(new Rectangle(GameData.windowWidth * 19 / 20 - cpu2Icon.getIconWidth(), GameData.windowHeight / 2 - GameData.loginRectH, cpu2Icon.getIconWidth(), cpu2Icon.getIconHeight()));
                 cpu2IconLabel.setVisible(true);
 
-                JTextField player2TextField = new JTextField();
+                player2TextField = new JTextField();
                 player2TextField.setBounds(new Rectangle(GameData.loginPaddingW * 3 / 2, GameData.windowHeight / 2 -  GameData.loginRectH, GameData.windowWidth - 3 * GameData.loginPaddingW, GameData.loginRectH));
                 player2TextField.setFont(Window.fontSecond);
                 player2TextField.setForeground(Color.WHITE);
@@ -163,7 +165,7 @@ public class PlaySettings {
                 playPanel.add(player2TextField);
                 playPanel.add(player2Label);
 
-                startGameBtn = new myButton(new Rectangle(GameData.windowWidth / 3, GameData.windowHeight - GameData.menuPaddingH - 150 , GameData.windowWidth / 3 , GameData.loginRectH) ,"  start game  ", playPanel);
+//                startGameBtn = new myButton(new Rectangle(GameData.windowWidth / 3, GameData.windowHeight - GameData.menuPaddingH - 150 , GameData.windowWidth / 3 , GameData.loginRectH) ,"  start game  ", playPanel);
             }
         }
 
@@ -187,6 +189,13 @@ public class PlaySettings {
         maxScoreField.setForeground(Color.WHITE);
         maxScoreField.setBackground(Color.BLACK);
         maxScoreField.setCaretColor(Color.WHITE);
+
+        errorField = new JLabel("", SwingConstants.CENTER);
+        errorField.setBounds(new Rectangle(0 , GameData.windowHeight - 3 * GameData.loginRectH - 7 * GameData.loginPaddingRectH, GameData.windowWidth, GameData.loginRectH));
+        errorField.setFont(Window.fontSecondSmall);
+        errorField.setHorizontalAlignment(JTextField.CENTER);
+        errorField.setForeground(Color.RED);
+        errorField.setBackground(Color.BLACK);
 //
 //        scoreLabel = new JLabel("WIN-LOSE", SwingConstants.CENTER);
 //        scoreLabel.setBounds(new Rectangle(GameData.windowWidth * 2 / 3, GameData.loginPaddingH - 2 * GameData.loginRectH, GameData.windowWidth / 3 , GameData.loginRectH));
@@ -200,6 +209,7 @@ public class PlaySettings {
 //        statsPanel.add(scoreLabel);
 
 //        playPanel.add(gifLabel);
+        playPanel.add(errorField);
         playPanel.add(modeTitleLabel);
         playPanel.add(maxPointsLabel);
         playPanel.add(maxScoreField);
@@ -209,6 +219,6 @@ public class PlaySettings {
         if(mode > 0)
             leftArrow = new myButton(new Rectangle(GameData.menuPaddingW, GameData.windowHeight - GameData.menuPaddingH - 150, 200, 100), "<-- ", playPanel);
         backBtn = new myButton(new Rectangle(GameData.menuPaddingW, GameData.menuPaddingH, 200 , GameData.loginRectH) ,"back", playPanel);
-
+        startGameBtn = new myButton(new Rectangle(GameData.windowWidth / 3, GameData.windowHeight - GameData.menuPaddingH - 150 , GameData.windowWidth / 3 , GameData.loginRectH) ,"start game", playPanel);
     }
 }
