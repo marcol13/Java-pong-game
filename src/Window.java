@@ -5,14 +5,14 @@ import java.io.File;
 import java.io.IOException;
 
 
-public class Window implements Runnable{
+public class Window{
 
-    GameMode1v1 game;
+//    GameMode1v1 game;
 //    GameMode1vAI game;
 //    GameMode2v2AI game;
 //    Clock clock;
     Graphics2D g;
-    KListener kl = new KListener();
+
     Users user = new Users();
     public static Menu menu;
     public static LoginForm login;
@@ -29,8 +29,6 @@ public class Window implements Runnable{
     public static String curr_user;
     public static String [] userInfo;
 
-    boolean isGame;
-
     int fps;
     public static int players;
     public static int statsPage;
@@ -39,8 +37,7 @@ public class Window implements Runnable{
     public Window(){
         //Dodać fullscreen
         myFrame = new MyFrame();
-        this.isGame = false;
-        this.fps = 120;
+        this.fps = 30;
         curr_user = "Guest";
         statsPage = 0;
         gameModeInt = 0;
@@ -54,7 +51,7 @@ public class Window implements Runnable{
             ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("bin/dogica.otf")));
 
             fontSubtitle = new Font("Baby blocks", Font.PLAIN, (int)(GameData.fontSize));
-            fontOption = new Font("Baby blocks", Font.PLAIN, (int)(GameData.fontSize * 1.5));
+            fontOption = new Font("Baby blocks", Font.PLAIN, (int)(GameData.fontSize * 0.6));
             fontSecondSmall = new Font("Dogica", Font.PLAIN, (int)(GameData.fontSize * 0.4));
         } catch (IOException |FontFormatException e) {
             Font fontTitle = new Font("TimeRoman", Font.PLAIN, GameData.fontSize * 2);
@@ -80,68 +77,7 @@ public class Window implements Runnable{
         PlayerInfo.getPlayerInfo("bin/data/users.txt");
     }
 
-    public void draw(Graphics g, double dt){
-        Graphics2D g2 = (Graphics2D)g;
-
-        g.setColor(Color.BLACK);
-        g.fillRect(0,0,GameData.windowWidth, GameData.windowHeight);
-
-        //login.drawLoginForm(g2);
-
-        //game.updateGame(g2,dt);
-    }
-
-
-    public void update(double dt){
-        Image dbImage = myFrame.createImage(myFrame.getWidth(), myFrame.getHeight());
-        Graphics dbg = dbImage.getGraphics();
-        this.draw(dbg,dt);
-
-
-        g.drawImage(dbImage, 0, 0, myFrame);
 
 
 
-
-
-        /*g.setColor(Color.BLACK);
-        g.fillRect(0,0,GameData.windowWidth, GameData.windowHeight);
-        g.setColor(Color.WHITE);
-//        menu.drawMenu(g);
-
-        if(kl.getKeyPressed(KeyEvent.VK_UP)){
-            if(menu.currOption > 0)
-                menu.currOption--;
-        }
-        if(kl.getKeyPressed(KeyEvent.VK_DOWN)){
-            if(menu.currOption < menu.options.length - 1)
-                menu.currOption++;
-        }
-        if(kl.getKeyPressed(KeyEvent.VK_ENTER) || kl.getKeyPressed(KeyEvent.VK_SPACE)){
-            if(menu.currOption == 0){
-
-            }
-            if(menu.currOption == 5)
-                System.exit(0);
-        }*/
-    }
-
-    public void run(){
-        double lastFrame = 0.0;
-        while(true){
-            if(isGame) {
-                fps = 30;
-                double time = Time.getTime();
-                double deltaTime = time - lastFrame;
-                lastFrame = time;
-                update(deltaTime);
-            }
-
-
-            try{
-                Thread.sleep(fps);
-            }catch(Exception e){
-            }
-        }
-    }
 }

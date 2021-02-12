@@ -86,7 +86,30 @@ public class ButtonActionListener implements ActionListener {
 
         else if(ch.equals("PLAY")){
             Window.myFrame.clearFrame();
+            Window.gameModeInt = 0;
             Window.playSettings = new PlaySettings(Window.myFrame, Window.gameModeInt);
+        }
+
+        else if(ch.equals("--> ")){
+            Window.myFrame.clearFrame();
+            Window.gameModeInt++;
+            Window.playSettings = new PlaySettings(Window.myFrame, Window.gameModeInt);
+        }
+
+        else if(ch.equals("<-- ")){
+            Window.myFrame.clearFrame();
+            Window.gameModeInt--;
+            Window.playSettings = new PlaySettings(Window.myFrame, Window.gameModeInt);
+        }
+
+        else if(ch.equals("START GAME")){
+            String maxPoints = Window.playSettings.maxScoreField.getText();
+            if(maxPoints == ""){
+
+            }
+            Window.myFrame.clearFrame();
+            Thread t1 = new Thread(new DrawGame(Window.myFrame, Window.gameModeInt, 5));
+            t1.start();
         }
     }
 }

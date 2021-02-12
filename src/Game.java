@@ -18,7 +18,7 @@ public class Game {
     public static boolean pausedGame = true;
 
     public int gamePadding = 30;
-    public int ballSize = 10;
+    public int ballSize = 20;
     public int spawnPointX = (int)((GameData.gameBoardW - ballSize)/2) + gamePadding;
     public int spawnPointY = (int)((GameData.gameBoardH - ballSize) / 2) + GameData.gamePaddingH;
     public int maxPoints;
@@ -31,9 +31,9 @@ public class Game {
         this.maxPoints = maxPoints;
         this.kl = kl;
         ball = new Ball(ballSize,spawnPointX, spawnPointY, GameData.drawSign() * 10, GameData.drawSign() * 10, Color.WHITE);
-        board = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingH, GameData.gameBoardW, GameData.gameBoardH);
-        result = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingW, GameData.gameBoardW, (int)(GameData.gameSignH * 0.75) - GameData.gamePaddingW);
-        clockSign = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingW + (int)(GameData.gameSignH * 0.75) - GameData.gamePaddingW, GameData.gameBoardW, (int)(GameData.gameSignH * 0.25));
+        board = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingH * 3 / 2, GameData.gameBoardW, GameData.gameBoardH);
+        result = new Rectangle(GameData.gamePaddingW, 3 * GameData.gamePaddingW, GameData.gameBoardW, (int)(GameData.gameSignH * 0.75) - GameData.gamePaddingW);
+        clockSign = new Rectangle(GameData.gamePaddingW, 3 * GameData.gamePaddingW + (int)(GameData.gameSignH) - GameData.gamePaddingW, GameData.gameBoardW, (int)(GameData.gameSignH * 0.25));
         clock = new Clock();
         tClock = new Thread(clock);
         ball.drawBall(g);
@@ -65,19 +65,19 @@ public class Game {
     }
 
     public void sign(Graphics2D g, String timeStr, Rectangle result, Rectangle clockRect, Controller player1, Controller player2){
-        Rectangle name1Rect = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingW, GameData.gameResultX - GameData.gamePaddingW,(int)(GameData.gameSignH * 0.75) - GameData.gamePaddingW);
-        Rectangle name2Rect = new Rectangle( GameData.gameResultX + GameData.gameResultW, GameData.gamePaddingW, GameData.gameResultX - GameData.gamePaddingW,(int)(GameData.gameSignH * 0.75) - GameData.gamePaddingW);
+        Rectangle name1Rect = new Rectangle(GameData.gamePaddingW, 3 * GameData.gamePaddingW, GameData.gameResultX - GameData.gamePaddingW,(int)(GameData.gameSignH * 0.75) - GameData.gamePaddingW);
+        Rectangle name2Rect = new Rectangle( GameData.gameResultX + GameData.gameResultW, 3 * GameData.gamePaddingW, GameData.gameResultX - GameData.gamePaddingW,(int)(GameData.gameSignH * 0.75) - GameData.gamePaddingW);
         g.setColor(Color.WHITE);
 
         GameData.drawCenteredString(g, score[0] + "-" + score[1], result, Window.fontTitle);
-        GameData.drawCenteredString(g, player1.playerName, name1Rect, Window.fontTitle);
-        GameData.drawCenteredString(g, player2.playerName, name2Rect, Window.fontTitle);
+        GameData.drawCenteredString(g, player1.playerName, name1Rect, Window.fontSecond);
+        GameData.drawCenteredString(g, player2.playerName, name2Rect, Window.fontSecond);
         GameData.drawCenteredString(g,timeStr, clockRect, Window.fontOption);
     }
 
     public void sign(Graphics2D g, String timeStr, Rectangle result, Rectangle clockRect, Controller player1, Controller player2, Controller player3, Controller player4){
-        Rectangle name1Rect = new Rectangle(GameData.gamePaddingW, GameData.gamePaddingW, GameData.gameResultX - GameData.gamePaddingW,(int)(GameData.gameSignH * 0.75) - GameData.gamePaddingW);
-        Rectangle name2Rect = new Rectangle( GameData.gameResultX + GameData.gameResultW, GameData.gamePaddingW, GameData.gameResultX - GameData.gamePaddingW,(int)(GameData.gameSignH * 0.75) - GameData.gamePaddingW);
+        Rectangle name1Rect = new Rectangle(GameData.gamePaddingW, 3 * GameData.gamePaddingW, GameData.gameResultX - GameData.gamePaddingW,(int)(GameData.gameSignH * 0.75) - GameData.gamePaddingW);
+        Rectangle name2Rect = new Rectangle( GameData.gameResultX + GameData.gameResultW, 3 * GameData.gamePaddingW, GameData.gameResultX - GameData.gamePaddingW,(int)(GameData.gameSignH * 0.75) - GameData.gamePaddingW);
         g.setColor(Color.WHITE);
 
         GameData.drawCenteredString(g,score[0] + "-" + score[1], result, Window.fontTitle);

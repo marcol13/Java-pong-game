@@ -12,7 +12,7 @@ public class GameData {
     public static int gameSignH = 130;
     public static int gamePaddingH = gamePaddingW + gameSignH;
     public static int gameBoardW = windowWidth - 2 * gamePaddingW;
-    public static int gameBoardH = windowHeight - gamePaddingW - gamePaddingH;
+    public static int gameBoardH = windowHeight - gamePaddingW - gamePaddingH * 3 / 2;
     public static int gameResultW = (int)(gameBoardH * 0.22);
     public static int gameResultX = (int)(windowWidth / 2 - gameResultW / 2);
     public static int startWidth = (int)(gameBoardW * 0.02);

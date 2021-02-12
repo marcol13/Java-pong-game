@@ -9,9 +9,9 @@ public class AI extends Controller{
     public void update(double dt){
         int diff = ball.getMiddle() - bar.getMiddle();
         if(diff > 0)
-            bar.moveBar((int)(-100 * dt));
+            bar.moveBar((int)(-200 * dt));
         else if(diff < 0)
-            bar.moveBar((int)(100 * dt));
+            bar.moveBar((int)(200 * dt));
 
     }
 

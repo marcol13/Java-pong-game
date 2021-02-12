@@ -6,12 +6,12 @@ public class GameMode1vAI extends Game{
     Player player;
     AI ai;
 
-    public GameMode1vAI(Graphics2D g, KListener kl, int maxPoints){
+    public GameMode1vAI(Graphics2D g, KListener kl, int maxPoints, String playerName){
         super(g, kl, maxPoints);
-        Bar playerBar = new Bar(gamePadding,GameData.gamePaddingH + (int)(GameData.gamePaddingH/2 + GameData.startHeight/2), GameData.startWidth, GameData.startHeight, GameData.gamePaddingH, GameData.windowHeight - GameData.gamePaddingW, Color.WHITE);
-        Bar aiBar = new Bar(GameData.windowWidth - gamePadding - GameData.startWidth, GameData.gamePaddingH + (int) (GameData.gamePaddingH / 2 + GameData.startHeight / 2), GameData.startWidth, GameData.startHeight, GameData.gamePaddingH, GameData.windowHeight - GameData.gamePaddingW, Color.WHITE);
-        player = new Player(playerBar, "unknown", kl, KeyEvent.VK_UP, KeyEvent.VK_DOWN);
-        ai = new AI(aiBar, "cpu", ball);
+        Bar playerBar = new Bar(gamePadding,(GameData.gamePaddingH  + (int)(GameData.gamePaddingH/2 + GameData.startHeight/2)) * 3 / 2, GameData.startWidth, GameData.startHeight, GameData.gamePaddingH * 3 / 2, GameData.windowHeight - GameData.gamePaddingW, Color.WHITE);
+        Bar aiBar = new Bar(GameData.windowWidth - gamePadding - GameData.startWidth, (GameData.gamePaddingH + (int) (GameData.gamePaddingH / 2 + GameData.startHeight / 2)) * 3 / 2, GameData.startWidth, GameData.startHeight, GameData.gamePaddingH * 3 / 2, GameData.windowHeight - GameData.gamePaddingW, Color.WHITE);
+        player = new Player(playerBar, playerName, kl, KeyEvent.VK_UP, KeyEvent.VK_DOWN);
+        ai = new AI(aiBar, "CPU", ball);
         player.bar.drawBar(g);
         ai.bar.drawBar(g);
     }

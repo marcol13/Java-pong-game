@@ -60,7 +60,7 @@ public class Ball {
                 player2.bar.resetBar();
             }
 
-            if (y + vy + size > GameData.windowHeight - GameData.gamePaddingW || y + vy < GameData.gamePaddingH)
+            if (y + vy + size > GameData.windowHeight - GameData.gamePaddingW || y + vy < GameData.gamePaddingH * 3 / 2)
                 vy = -vy;
             if (x + vx + size > player2.bar.x && y + vy > player2.bar.y && y + vy <= player2.bar.y + player2.bar.height) {
                 vx++;
@@ -113,7 +113,7 @@ public class Ball {
                 player4.bar.resetBar();
             }
 
-            if (y + vy + size > GameData.windowHeight - GameData.gamePaddingW || y + vy < GameData.gamePaddingH)
+            if (y + vy + size > GameData.windowHeight - GameData.gamePaddingW || y + vy < GameData.gamePaddingH * 3 / 2)
                 vy = -vy;
             if ((x + vx + size > player3.bar.x && y + vy > player3.bar.y && y + vy <= player3.bar.y + player3.bar.height) || (x + vx + size > player4.bar.x && y + vy > player4.bar.y && y + vy <= player4.bar.y + player4.bar.height)) {
                 vx++;

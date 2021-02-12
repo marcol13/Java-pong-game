@@ -12,10 +12,10 @@ public class Player extends Controller{
 
     public void update(double dt){
         if(kl.getKeyPressed(downKey)){
-            bar.moveBar((int)-(100 * dt));
+            bar.moveBar((int)-(200 * dt));
         }
         if(kl.getKeyPressed(upKey)){
-            bar.moveBar((int)(100 * dt));
+            bar.moveBar((int)(200 * dt));
         }
     }
 }
