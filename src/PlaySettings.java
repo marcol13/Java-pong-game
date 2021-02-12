@@ -8,11 +8,24 @@ public class PlaySettings {
     JPanel playPanel;
 
     JButton backBtn;
+    JButton startGameBtn;
+    JButton rightArrow;
+    JButton leftArrow;
 
-    JLabel nickLabel;
-    JLabel scoreLabel;
+    JLabel modeTitleLabel;
+    JLabel maxPointsLabel;
+    JLabel gameModeLabel;
 
-    public PlaySettings(MyFrame frame){
+    JTextField maxScoreField;
+
+    Icon player1Icon;
+    Icon player2Icon;
+    Icon cpu1Icon;
+    Icon cpu2Icon;
+
+    String[] options = {"1 VS AI", "1 VS 1", "2 VS 2AI"};
+
+    public PlaySettings(MyFrame frame, int mode){
         this.frame = frame;
 
         playPanel = new JPanel();
@@ -21,65 +34,63 @@ public class PlaySettings {
         playPanel.setBackground(Color.BLACK);
         playPanel.setVisible(true);
 
-        updateStats();
-    }
-
-    public void updateStats(){
-        setStatsPanel();
-        setPlayers(page);
-        frame.add(statsPanel);
+        setPlayPanel();
+        frame.add(playPanel);
 
         frame.invalidate();
         frame.validate();
         frame.repaint();
     }
 
-    public void setStatsPanel(){
-        nickLabel = new JLabel("NICKNAME", SwingConstants.CENTER);
-        nickLabel.setBounds(new Rectangle(0, GameData.loginPaddingH - 2 * GameData.loginRectH, GameData.windowWidth * 2 / 3 , GameData.loginRectH));
-        nickLabel.setBackground(Color.BLACK);
-        nickLabel.setForeground(Color.WHITE);
-        nickLabel.setFont(Window.fontSecond);
-        nickLabel.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.WHITE));
-        nickLabel.setVisible(true);
+    public void setPlayPanel(){
+        player1Icon = new ImageIcon("bin/player_walk.gif");
 
-        scoreLabel = new JLabel("WIN-LOSE", SwingConstants.CENTER);
-        scoreLabel.setBounds(new Rectangle(GameData.windowWidth * 2 / 3, GameData.loginPaddingH - 2 * GameData.loginRectH, GameData.windowWidth / 3 , GameData.loginRectH));
-        scoreLabel.setBackground(Color.BLACK);
-        scoreLabel.setForeground(Color.WHITE);
-        scoreLabel.setFont(Window.fontSecond);
-        scoreLabel.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.WHITE));
-        scoreLabel.setVisible(true);
+        JLabel gifLabel = new JLabel(player1Icon);
+        gifLabel.setSize(400,400);
 
-        statsPanel.add(nickLabel);
-        statsPanel.add(scoreLabel);
 
-        if(Window.players > (page + 1) * 9)
-            rightArrow = new myButton(new Rectangle(GameData.windowWidth - GameData.menuPaddingW - 200, GameData.windowHeight - GameData.menuPaddingH - 150, 200, 100), "-->", statsPanel);
-        if(page > 0)
-            leftArrow = new myButton(new Rectangle(GameData.menuPaddingW, GameData.windowHeight - GameData.menuPaddingH - 150, 200, 100), "<--", statsPanel);
-        backBtn = new myButton(new Rectangle(GameData.menuPaddingW, GameData.menuPaddingH, 200 , GameData.loginRectH) ,"back", statsPanel);
-    }
+        modeTitleLabel = new JLabel("Player VS CPU", SwingConstants.CENTER);
+        modeTitleLabel.setBounds(new Rectangle(0, GameData.loginPaddingH - 2 * GameData.loginRectH, GameData.windowWidth, GameData.loginRectH));
+        modeTitleLabel.setBackground(Color.BLACK);
+        modeTitleLabel.setForeground(Color.WHITE);
+        modeTitleLabel.setFont(Window.fontSecond);
+        modeTitleLabel.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.WHITE));
+        modeTitleLabel.setVisible(true);
 
-    public void setPlayers(int n){
-        labels = new JLabel [Window.players * 2];
-        for(int i = n * 9, j = n * 9 * 3; i < Window.players && i < (n + 1) * 9; i++,  j += 3){
-            labels[i*2] = new JLabel(Window.userInfo[j], SwingConstants.CENTER);
-            labels[i*2].setBounds(new Rectangle(0, GameData.loginPaddingH -  GameData.loginRectH + GameData.loginPaddingRectH + (i % 9) * GameData.loginRectH, GameData.windowWidth * 2 / 3, GameData.loginRectH));
-            labels[i*2].setBackground(Color.BLACK);
-            labels[i*2].setForeground(Color.WHITE);
-            labels[i*2].setFont(Window.fontSecond);
-            labels[i*2].setVisible(true);
+        maxPointsLabel = new JLabel("POINTS TO WIN", SwingConstants.CENTER);
+        maxPointsLabel.setBounds(new Rectangle(0 , GameData.windowHeight - 5 * GameData.loginRectH - 2 * GameData.loginPaddingRectH, GameData.windowWidth, GameData.loginRectH));
+        maxPointsLabel.setBackground(Color.BLACK);
+        maxPointsLabel.setForeground(Color.WHITE);
+        maxPointsLabel.setFont(Window.fontSecondSmall);
+        maxPointsLabel.setVisible(true);
 
-            labels[i*2+1] = new JLabel(Window.userInfo[j+1] + " - " + Window.userInfo[j+2], SwingConstants.CENTER);
-            labels[i*2+1].setBounds(new Rectangle(GameData.windowWidth * 2 / 3, GameData.loginPaddingH -  GameData.loginRectH + GameData.loginPaddingRectH + (i % 9) * GameData.loginRectH, GameData.windowWidth / 3, GameData.loginRectH));
-            labels[i*2+1].setBackground(Color.BLACK);
-            labels[i*2+1].setForeground(Color.WHITE);
-            labels[i*2+1].setFont(Window.fontSecond);
-            labels[i*2+1].setVisible(true);
+        maxScoreField = new JTextField();
+        maxScoreField.setBounds(new Rectangle(GameData.windowWidth * 9 / 20 , GameData.windowHeight - 4 * GameData.loginRectH - 2 * GameData.loginPaddingRectH, GameData.windowWidth / 10, GameData.loginRectH));
+        maxScoreField.setFont(Window.fontSecond);
+        maxScoreField.setHorizontalAlignment(JTextField.CENTER);
+        maxScoreField.setForeground(Color.WHITE);
+        maxScoreField.setBackground(Color.BLACK);
+        maxScoreField.setCaretColor(Color.WHITE);
+//
+//        scoreLabel = new JLabel("WIN-LOSE", SwingConstants.CENTER);
+//        scoreLabel.setBounds(new Rectangle(GameData.windowWidth * 2 / 3, GameData.loginPaddingH - 2 * GameData.loginRectH, GameData.windowWidth / 3 , GameData.loginRectH));
+//        scoreLabel.setBackground(Color.BLACK);
+//        scoreLabel.setForeground(Color.WHITE);
+//        scoreLabel.setFont(Window.fontSecond);
+//        scoreLabel.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.WHITE));
+//        scoreLabel.setVisible(true);
+//
+//        statsPanel.add(nickLabel);
+//        statsPanel.add(scoreLabel);
 
-            statsPanel.add(labels[i*2]);
-            statsPanel.add(labels[i*2+1]);
-        }
+        playPanel.add(gifLabel);
+        playPanel.add(modeTitleLabel);
+        playPanel.add(maxPointsLabel);
+        playPanel.add(maxScoreField);
+
+        rightArrow = new myButton(new Rectangle(GameData.windowWidth - GameData.menuPaddingW - 200, GameData.windowHeight - GameData.menuPaddingH - 150, 200, 100), "--> ", playPanel);
+        leftArrow = new myButton(new Rectangle(GameData.menuPaddingW, GameData.windowHeight - GameData.menuPaddingH - 150, 200, 100), "<-- ", playPanel);
+        backBtn = new myButton(new Rectangle(GameData.menuPaddingW, GameData.menuPaddingH, 200 , GameData.loginRectH) ,"back", playPanel);
+        startGameBtn = new myButton(new Rectangle(GameData.windowWidth * 3 / 8, GameData.windowHeight - 3 * GameData.loginRectH - GameData.loginPaddingRectH , GameData.windowWidth / 4 , GameData.loginRectH) ,"start game", playPanel);
     }
 }

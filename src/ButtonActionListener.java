@@ -83,5 +83,10 @@ public class ButtonActionListener implements ActionListener {
             Window.statsPage--;
             Window.stats = new PlayerStats(Window.myFrame, Window.statsPage);
         }
+
+        else if(ch.equals("PLAY")){
+            Window.myFrame.clearFrame();
+            Window.playSettings = new PlaySettings(Window.myFrame, Window.gameModeInt);
+        }
     }
 }
