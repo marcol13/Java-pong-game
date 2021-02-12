@@ -17,6 +17,7 @@ public class Window implements Runnable{
     public static Menu menu;
     public static LoginForm login;
     public static MyFrame myFrame;
+    public static PlayerStats stats;
 
     public static Font fontTitle;
     public static Font fontSubtitle;
@@ -25,19 +26,21 @@ public class Window implements Runnable{
     public static Font fontSecondSmall;
 
     public static String curr_user;
+    public static String [] userInfo;
 
     boolean isGame;
 
     int fps;
-
+    public static int players;
+    public static int statsPage;
 
     public Window(){
         //Dodać fullscreen
         myFrame = new MyFrame();
-
         this.isGame = false;
         this.fps = 120;
         curr_user = "Guest";
+        statsPage = 0;
 
         try {
             fontTitle = Font.createFont(Font.TRUETYPE_FONT, new File("bin/baby_blocks.ttf")).deriveFont(80f);
@@ -68,6 +71,12 @@ public class Window implements Runnable{
 //        Thread tClock = new Thread(clock);
     }
 
+    public static void updatePlayers(){
+        players = PlayerInfo.users_quantity("bin/data/users.txt") / 4;
+        userInfo = new String[players * 3];
+        PlayerInfo.getPlayerInfo("bin/data/users.txt");
+        System.out.println(players);
+    }
 
     public void draw(Graphics g, double dt){
         Graphics2D g2 = (Graphics2D)g;

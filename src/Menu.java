@@ -35,6 +35,8 @@ public class Menu{
     public Menu(MyFrame frame){
         this.frame = frame;
 
+        Window.updatePlayers();
+
         titlePanel = new JPanel();
         titlePanel.setLayout(null);
         titlePanel.setBounds(new Rectangle(0,0,GameData.windowWidth, GameData.menuRectTitleH + GameData.menuRectSubtitleH + GameData.menuPaddingH));
@@ -54,8 +56,6 @@ public class Menu{
         frame.invalidate();
         frame.validate();
         frame.repaint();
-
-
     }
 
     private void setButtons(){

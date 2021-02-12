@@ -65,5 +65,23 @@ public class ButtonActionListener implements ActionListener {
                 Window.myFrame.repaint();
             }
         }
+
+        else if(ch.equals("STATS")){
+            Window.statsPage = 0;
+            Window.myFrame.clearFrame();
+            Window.stats = new PlayerStats(Window.myFrame, Window.statsPage);
+        }
+
+        else if(ch.equals("-->")){
+            Window.myFrame.clearFrame();
+            Window.statsPage++;
+            Window.stats = new PlayerStats(Window.myFrame, Window.statsPage);
+        }
+
+        else if(ch.equals("<--")){
+            Window.myFrame.clearFrame();
+            Window.statsPage--;
+            Window.stats = new PlayerStats(Window.myFrame, Window.statsPage);
+        }
     }
 }
