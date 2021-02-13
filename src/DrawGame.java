@@ -12,6 +12,7 @@ public class DrawGame implements Runnable{
     GameMode2v2AI game2;
 
     public static boolean isGame;
+    public static boolean isTournament;
     int gameMode;
 
     int fps;
@@ -21,6 +22,7 @@ public class DrawGame implements Runnable{
         this.frame = frame;
         this.fps = 30;
         this.gameMode = gameMode;
+        isTournament = false;
 
         g = (Graphics2D)frame.getGraphics();
         frame.requestFocus();
@@ -37,18 +39,32 @@ public class DrawGame implements Runnable{
         this.frame = frame;
         this.fps = 30;
         this.gameMode = gameMode;
+        isTournament = false;
 
         g = (Graphics2D)frame.getGraphics();
         frame.requestFocus();
 
         switch (gameMode) {
             case 1 -> {
-                game1 = new GameMode1v1(g, MyFrame.kl, maxPoints, playerName1, playerName2);
+                game1 = new GameMode1v1(g, MyFrame.kl, maxPoints, playerName1, playerName2, false);
             }
             case 2 -> {
                 game2 = new GameMode2v2AI(g, MyFrame.kl, maxPoints, playerName1, playerName2);
             }
         }
+    }
+
+    public DrawGame(MyFrame frame, int gameMode, int maxPoints, String playerName1, String playerName2, boolean isTournament){
+        isGame = true;
+        this.frame = frame;
+        this.fps = 30;
+        this.gameMode = gameMode;
+        DrawGame.isTournament = isTournament;
+
+        g = (Graphics2D)frame.getGraphics();
+        frame.requestFocus();
+
+        game1 = new GameMode1v1(g, MyFrame.kl, maxPoints, playerName1, playerName2, isTournament);
     }
 
     public void draw(Graphics g, double dt){
@@ -91,28 +107,37 @@ public class DrawGame implements Runnable{
             }
         }
 
-        if(Game.curr_user_wins) {
-            for (int i = 0; i < Window.players * 3; i += 3) {
-                if (Window.userInfo[i].equals(Window.curr_user)) {
-                    int temp = Integer.parseInt(Window.userInfo[i + 1]);
-                    temp += 1;
-                    Window.userInfo[i+1] = Integer.toString(temp);
-                    break;
+        if(!isTournament) {
+            if (Game.curr_user_wins) {
+                for (int i = 0; i < Window.players * 3; i += 3) {
+                    if (Window.userInfo[i].equals(Window.curr_user)) {
+                        int temp = Integer.parseInt(Window.userInfo[i + 1]);
+                        temp += 1;
+                        Window.userInfo[i + 1] = Integer.toString(temp);
+                        break;
+                    }
+                }
+            } else {
+                for (int i = 0; i < Window.players * 3; i += 3) {
+                    if (Window.userInfo[i].equals(Window.curr_user)) {
+                        int temp = Integer.parseInt(Window.userInfo[i + 2]);
+                        temp += 1;
+                        Window.userInfo[i + 2] = Integer.toString(temp);
+                        break;
+                    }
                 }
             }
+            PlayerInfo.savePlayersInfo("bin/data/users.txt");
+            Window.myFrame.clearFrame();
+            Window.menu = new Menu(Window.myFrame);
         }
         else{
-            for(int i = 0; i < Window.players * 3; i += 3){
-                if(Window.userInfo[i].equals(Window.curr_user)){
-                    int temp = Integer.parseInt(Window.userInfo[i+2]);
-                    temp += 1;
-                    Window.userInfo[i+2] = Integer.toString(temp);
-                    break;
-                }
-            }
+            Tournament.players[Tournament.nextPlayer1][Tournament.nextPlayer2] = game1.score[0];
+            Tournament.players[Tournament.nextPlayer2][Tournament.nextPlayer1] = game1.score[1];
+            Window.myFrame.clearFrame();
+            Window.tournament.updateTable();
+            Window.tournament.turn++;
         }
-        PlayerInfo.savePlayersInfo("bin/data/users.txt");
-        Window.myFrame.clearFrame();
-        Window.menu = new Menu(Window.myFrame);
+
     }
 }

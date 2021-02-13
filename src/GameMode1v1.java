@@ -6,8 +6,11 @@ public class GameMode1v1 extends Game{
     Player player1;
     Player player2;
 
-    public GameMode1v1(Graphics2D g, KListener kl, int maxPoints, String playerName1, String playerName2){
+    public boolean isTournament;
+
+    public GameMode1v1(Graphics2D g, KListener kl, int maxPoints, String playerName1, String playerName2, boolean isTournament){
         super(g,kl,maxPoints);
+        this.isTournament = isTournament;
         Bar player1Bar = new Bar(gamePadding,(GameData.gamePaddingH + (int)(GameData.gamePaddingH/2 + GameData.startHeight/2)) * 3 / 2, GameData.startWidth, GameData.startHeight, GameData.gamePaddingH * 3 / 2,  GameData.windowHeight - GameData.gamePaddingW, Color.WHITE);
         Bar player2Bar = new Bar(GameData.windowWidth - gamePadding - GameData.startWidth, (GameData.gamePaddingH + (int) (GameData.gamePaddingH / 2 + GameData.startHeight / 2)) * 3 / 2, GameData.startWidth, GameData.startHeight, GameData.gamePaddingH * 3 / 2, GameData.windowHeight - GameData.gamePaddingW, Color.WHITE);
         player1 = new Player(player1Bar, playerName1, kl, KeyEvent.VK_UP, KeyEvent.VK_DOWN);

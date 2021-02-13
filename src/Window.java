@@ -19,6 +19,11 @@ public class Window{
     public static MyFrame myFrame;
     public static PlayerStats stats;
     public static PlaySettings playSettings;
+    public static TournamentChoose tournamentChoose;
+    public static CreateTournament createTournament;
+//    public static TournamentTable tournamentTable;
+    public static Tournament tournament;
+    public static Congratulation congratulation;
 
     public static Font fontTitle;
     public static Font fontSubtitle;

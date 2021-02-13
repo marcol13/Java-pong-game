@@ -160,6 +160,69 @@ public class ButtonActionListener implements ActionListener {
             }
 
         }
+
+        else if(ch.equals("TOURNAMENT")){
+            Window.myFrame.clearFrame();
+            Window.tournamentChoose = new TournamentChoose(Window.myFrame);
+        }
+
+        else if(ch.equals("CREATE TOURNAMENT")){
+            Window.myFrame.clearFrame();
+            Window.createTournament = new CreateTournament(Window.myFrame);
+        }
+
+        else if(ch.equals("CREATE")){
+            String tournamentName = Window.createTournament.nameTextField.getText();
+            String player2Name = Window.createTournament.user2TextField.getText();
+            String player3Name = Window.createTournament.user3TextField.getText();
+            String player4Name = Window.createTournament.user4TextField.getText();
+
+            String [] strArray = {Window.curr_user, player2Name, player3Name, player4Name};
+
+            int [][] initArray = new int [4][4];
+            for(int i = 0; i < 4; i++){
+                for(int j = 0; j < 4; j++){
+                    initArray[i][j] = -1;
+                }
+            }
+
+            Window.myFrame.clearFrame();
+            Window.tournament = new Tournament(Window.myFrame, tournamentName, 0, strArray, initArray);
+        }
+
+        else if(ch.equals("NEXT")){
+            Tournament.drawNextPair();
+            String rndFirst = Tournament.playerNames[Tournament.nextPlayer1];
+            String rndSecond = Tournament.playerNames[Tournament.nextPlayer2];
+            Window.myFrame.clearFrame();
+            Thread t1 = new Thread(new DrawGame(Window.myFrame, 1, 3, rndFirst, rndSecond, true));
+            t1.start();
+        }
+
+        else if(ch.equals("END")){
+            Window.myFrame.clearFrame();
+            Window.congratulation = new Congratulation(Window.myFrame, Window.tournament.tournamentName, Window.tournament.getWinner());
+        }
+
+        else if(ch.equals("OK")){
+            Window.myFrame.clearFrame();
+            Window.menu = new Menu(Window.myFrame);
+        }
+
+        else if(ch.equals("SAVE")){
+            Thread t1 = new Thread(new SaveTournament());
+            t1.start();
+            try {
+                t1.join();
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
+        }
+
+        else if(ch.equals("LOAD TOURNAMENT")){
+            Window.myFrame.clearFrame();
+        }
+
     }
 
 }
