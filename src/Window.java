@@ -24,6 +24,7 @@ public class Window{
 //    public static TournamentTable tournamentTable;
     public static Tournament tournament;
     public static Congratulation congratulation;
+    public static LoadWindow loadWindow;
 
     public static Font fontTitle;
     public static Font fontSubtitle;

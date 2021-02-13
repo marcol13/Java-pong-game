@@ -1,5 +1,6 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 public class ButtonActionListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
@@ -221,6 +222,31 @@ public class ButtonActionListener implements ActionListener {
 
         else if(ch.equals("LOAD TOURNAMENT")){
             Window.myFrame.clearFrame();
+            Window.loadWindow = new LoadWindow(Window.myFrame);
+        }
+
+        else if(ch.equals("LOAD")){
+            String path = Window.loadWindow.pathField.getText();
+            if(path.length() < 1){
+                Window.loadWindow.errorLabel.setText("TYPE SOMETHING");
+                Window.myFrame.repaint();
+            }
+            else{
+                File f = new File("bin/data/tournaments/"+path+".txt");
+                if(!f.exists() || f.isDirectory()) {
+                    Window.loadWindow.errorLabel.setText("FILE DOESN'T EXIST");
+                    Window.myFrame.repaint();
+                }
+                else{
+                    Thread t2 = new Thread(new LoadTournament(path));
+                    t2.start();
+                    try {
+                        t2.join();
+                    } catch (InterruptedException interruptedException) {
+                        interruptedException.printStackTrace();
+                    }
+                }
+            }
         }
 
     }
