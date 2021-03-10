@@ -127,7 +127,7 @@ public class DrawGame implements Runnable{
                     }
                 }
             }
-            PlayerInfo.savePlayersInfo("bin/data/users.txt");
+            PlayerInfo.savePlayersInfo(Window.jar_path + "bin/data/users.txt");
             Window.myFrame.clearFrame();
             Window.menu = new Menu(Window.myFrame);
         }

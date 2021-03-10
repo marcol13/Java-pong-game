@@ -57,7 +57,7 @@ public class PlaySettings {
     }
 
     public void setPlayPanel(){
-        player1Icon = new ImageIcon("bin/player-walk-right.gif");
+        player1Icon = new ImageIcon(Window.jar_path + "bin/player-walk-right.gif");
 
         modeTitleLabel = new JLabel("", SwingConstants.CENTER);
         modeTitleLabel.setBounds(new Rectangle(0, GameData.loginPaddingH - 2 * GameData.loginRectH, GameData.windowWidth, GameData.loginRectH));
@@ -76,7 +76,7 @@ public class PlaySettings {
                 player1IconLabel.setBounds(new Rectangle(GameData.windowWidth / 10, GameData.windowHeight / 2 - 3 * GameData.loginRectH, player1Icon.getIconWidth(), player1Icon.getIconHeight()));
                 player1IconLabel.setVisible(true);
 
-                cpu1Icon = new ImageIcon("bin/robot-idle-left.gif");
+                cpu1Icon = new ImageIcon(Window.jar_path + "bin/robot-idle-left.gif");
 
                 cpu1IconLabel = new JLabel(cpu1Icon);
                 cpu1IconLabel.setBounds(new Rectangle(GameData.windowWidth * 9 / 10 - cpu1Icon.getIconWidth(), GameData.windowHeight / 2 - 3 * GameData.loginRectH, cpu1Icon.getIconWidth(), cpu1Icon.getIconHeight()));
@@ -94,7 +94,7 @@ public class PlaySettings {
                 player1IconLabel.setBounds(new Rectangle(GameData.windowWidth / 10, GameData.windowHeight / 2 - 3 * GameData.loginRectH, player1Icon.getIconWidth(), player1Icon.getIconHeight()));
                 player1IconLabel.setVisible(true);
 
-                player2Icon = new ImageIcon("bin/player-walk-left.gif");
+                player2Icon = new ImageIcon(Window.jar_path + "bin/player-walk-left.gif");
 
                 player2IconLabel = new JLabel(player2Icon);
                 player2IconLabel.setBounds(new Rectangle(GameData.windowWidth * 9 / 10 - player2Icon.getIconWidth(), GameData.windowHeight / 2 - 3 * GameData.loginRectH, player2Icon.getIconWidth(), player2Icon.getIconHeight()));
@@ -127,19 +127,19 @@ public class PlaySettings {
                 player1IconLabel.setBounds(new Rectangle(GameData.windowWidth / 10, GameData.windowHeight / 2 - 3 * GameData.loginRectH, player1Icon.getIconWidth(), player1Icon.getIconHeight()));
                 player1IconLabel.setVisible(true);
 
-                player2Icon = new ImageIcon("bin/player-walk-right.gif");
+                player2Icon = new ImageIcon(Window.jar_path + "bin/player-walk-right.gif");
 
                 player2IconLabel = new JLabel(player2Icon);
                 player2IconLabel.setBounds(new Rectangle(GameData.windowWidth / 20, GameData.windowHeight / 2 - GameData.loginRectH, player2Icon.getIconWidth(), player2Icon.getIconHeight()));
                 player2IconLabel.setVisible(true);
 
-                cpu1Icon = new ImageIcon("bin/robot-idle-left.gif");
+                cpu1Icon = new ImageIcon(Window.jar_path + "bin/robot-idle-left.gif");
 
                 cpu1IconLabel = new JLabel(cpu1Icon);
                 cpu1IconLabel.setBounds(new Rectangle(GameData.windowWidth * 9 / 10 - cpu1Icon.getIconWidth(), GameData.windowHeight / 2 - 3 * GameData.loginRectH, cpu1Icon.getIconWidth(), cpu1Icon.getIconHeight()));
                 cpu1IconLabel.setVisible(true);
 
-                cpu2Icon = new ImageIcon("bin/robot-idle-left.gif");
+                cpu2Icon = new ImageIcon(Window.jar_path + "bin/robot-idle-left.gif");
 
                 cpu2IconLabel = new JLabel(cpu1Icon);
                 cpu2IconLabel.setBounds(new Rectangle(GameData.windowWidth * 19 / 20 - cpu2Icon.getIconWidth(), GameData.windowHeight / 2 - GameData.loginRectH, cpu2Icon.getIconWidth(), cpu2Icon.getIconHeight()));
