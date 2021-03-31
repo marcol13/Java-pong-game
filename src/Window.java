@@ -33,7 +33,7 @@ public class Window{
     public static Font fontSecondSmall;
 
     public static String curr_user;
-    public static String jar_path = "../../../";
+    public static String jar_path = "";
     public static String [] userInfo;
     public static String [] pass;
 
