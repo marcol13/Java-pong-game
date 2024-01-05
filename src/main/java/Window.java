@@ -51,12 +51,12 @@ public class Window{
         gameModeInt = 0;
 
         try {
-            fontTitle = Font.createFont(Font.TRUETYPE_FONT, new File(jar_path + "bin/baby_blocks.ttf")).deriveFont(80f);
+            fontTitle = Font.createFont(Font.TRUETYPE_FONT, new File("bin/baby_blocks.ttf")).deriveFont(80f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(jar_path + "bin/baby_blocks.ttf")));
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("bin/baby_blocks.ttf")));
 
-            fontSecond = Font.createFont(Font.TRUETYPE_FONT, new File(jar_path + "bin/dogica.otf")).deriveFont(40f);
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(jar_path + "bin/dogica.otf")));
+            fontSecond = Font.createFont(Font.TRUETYPE_FONT, new File("bin/dogica.otf")).deriveFont(40f);
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("bin/dogica.otf")));
 
             fontSubtitle = new Font("Baby blocks", Font.PLAIN, (int)(GameData.fontSize));
             fontOption = new Font("Baby blocks", Font.PLAIN, (int)(GameData.fontSize * 0.6));
@@ -80,10 +80,10 @@ public class Window{
     }
 
     public static void updatePlayers(){
-        players = PlayerInfo.users_quantity(Window.jar_path + "bin/data/users.txt") / 4;
+        players = PlayerInfo.users_quantity("bin/data/users.txt") / 4;
         userInfo = new String[players * 3];
         pass = new String[players];
-        PlayerInfo.getPlayerInfo(Window.jar_path + "bin/data/users.txt");
+        PlayerInfo.getPlayerInfo("bin/data/users.txt");
     }
 
 
