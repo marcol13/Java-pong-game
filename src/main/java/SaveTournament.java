@@ -9,7 +9,7 @@ public class SaveTournament implements Runnable{
 
     private void saveToFile(){
         try {
-            FileWriter myWriter = new FileWriter("bin/data/tournaments/"+Window.tournament.tournamentName+".txt");
+            FileWriter myWriter = new FileWriter(Window.classLoader.getResource("data/tournaments/"+Window.tournament.tournamentName+".txt").getPath());
             myWriter.write(Window.tournament.tournamentName+"\n");
             myWriter.write(Window.tournament.turn +"\n");
             for(int i = 0; i < 4; i++){

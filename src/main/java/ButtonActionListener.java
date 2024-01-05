@@ -24,10 +24,10 @@ public class ButtonActionListener implements ActionListener {
             String nickname = Window.login.loginTextField.getText();
             char[] password = Window.login.passwordField.getPassword();
             if(nickname.length() > 0 && password.length > 0 ){
-                new findUser("bin/data/users.txt", nickname);
+                new findUser(Window.classLoader.getResource("data/users.txt").getPath(), nickname);
                 if(!Window.login.already_exist) {
                     String[] arr = {nickname, new String(password), "0", "0"};
-                    new WriteToFile("bin/data/users.txt", arr);
+                    new WriteToFile(Window.classLoader.getResource("data/users.txt").getPath(), arr);
                     Window.curr_user = nickname;
                     Window.myFrame.clearFrame();
                     Window.menu = new Menu(Window.myFrame);
@@ -47,7 +47,7 @@ public class ButtonActionListener implements ActionListener {
             String nickname = Window.login.loginTextField.getText();
             char[] password = Window.login.passwordField.getPassword();
             if(nickname.length() > 0 && password.length > 0 ) {
-                new loginToGame("bin/data/users.txt", nickname, new String(password));
+                new loginToGame(Window.classLoader.getResource("data/users.txt").getPath(), nickname, new String(password));
                 if(Window.login.login_empty){
                     Window.login.errorLabel.setText("THERE IS NO USER WITH THAT LOGIN");
                     Window.myFrame.repaint();
@@ -232,7 +232,7 @@ public class ButtonActionListener implements ActionListener {
                 Window.myFrame.repaint();
             }
             else{
-                File f = new File("bin/data/tournaments/"+path+".txt");
+                File f = new File(Window.classLoader.getResource("data/tournaments/"+path+".txt").getPath());
                 if(!f.exists() || f.isDirectory()) {
                     Window.loadWindow.errorLabel.setText("FILE DOESN'T EXIST");
                     Window.myFrame.repaint();

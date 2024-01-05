@@ -16,7 +16,7 @@ public class LoadTournament implements Runnable{
         String [] playerNames = new String[4];
         int [][] playerScore = new int[4][4];
         try {
-            File myObj = new File("bin/data/tournaments/"+path+".txt");
+            File myObj = new File(Window.classLoader.getResource("data/tournaments/"+path+".txt").getPath());
             Scanner myReader = new Scanner(myObj);
             tournamentName = myReader.nextLine();
             turn = Integer.parseInt(myReader.nextLine());

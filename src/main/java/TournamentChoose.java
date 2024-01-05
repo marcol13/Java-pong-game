@@ -32,7 +32,7 @@ public class TournamentChoose {
     }
 
     public void setButtons(){
-        gobletIcon = new ImageIcon("bin/goblet-icon-2.png");
+        gobletIcon = new ImageIcon(Window.classLoader.getResource("goblet-icon-2.png").getPath());
 
         iconLabel = new JLabel(gobletIcon);
         iconLabel.setBounds((GameData.windowWidth - gobletIcon.getIconWidth()) / 2, GameData.loginPaddingH / 2, gobletIcon.getIconWidth(), gobletIcon.getIconHeight());

@@ -3,6 +3,11 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.Objects;
+import java.util.Scanner;
 
 
 public class Window{
@@ -33,7 +38,7 @@ public class Window{
     public static Font fontSecondSmall;
 
     public static String curr_user;
-    public static String jar_path = "../../../";
+    public static ClassLoader classLoader = Window.class.getClassLoader();
     public static String [] userInfo;
     public static String [] pass;
 
@@ -43,7 +48,6 @@ public class Window{
     public static int gameModeInt;
 
     public Window(){
-        //Dodać fullscreen
         myFrame = new MyFrame();
         this.fps = 30;
         curr_user = "Guest";
@@ -51,12 +55,12 @@ public class Window{
         gameModeInt = 0;
 
         try {
-            fontTitle = Font.createFont(Font.TRUETYPE_FONT, new File("bin/baby_blocks.ttf")).deriveFont(80f);
+            fontTitle = Font.createFont(Font.TRUETYPE_FONT, new File(Window.classLoader.getResource("baby_blocks.ttf").getPath())).deriveFont(80f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("bin/baby_blocks.ttf")));
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(Window.classLoader.getResource("baby_blocks.ttf").getPath())));
 
-            fontSecond = Font.createFont(Font.TRUETYPE_FONT, new File("bin/dogica.otf")).deriveFont(40f);
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("bin/dogica.otf")));
+            fontSecond = Font.createFont(Font.TRUETYPE_FONT, new File(Window.classLoader.getResource("dogica.otf").getPath())).deriveFont(40f);
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(Window.classLoader.getResource("dogica.otf").getPath())));
 
             fontSubtitle = new Font("Baby blocks", Font.PLAIN, (int)(GameData.fontSize));
             fontOption = new Font("Baby blocks", Font.PLAIN, (int)(GameData.fontSize * 0.6));
@@ -69,24 +73,12 @@ public class Window{
 
         g = (Graphics2D)myFrame.getGraphics();
         menu = new Menu(myFrame);
-        //menu.changeLogged(user.getCurrUser());
-
-        //game = new GameMode1v1(g, kl, 2);
-//        login = new LoginForm(g, MyFrame.kl, myFrame);
-        //game = new GameMode1vAI(g,kl);
-        //game = new GameMode2v2AI(g,kl);
-//        clock = new Clock();
-//        Thread tClock = new Thread(clock);
     }
 
     public static void updatePlayers(){
-        players = PlayerInfo.users_quantity("bin/data/users.txt") / 4;
+        players = PlayerInfo.users_quantity(Window.classLoader.getResource("data/users.txt").getPath()) / 4;
         userInfo = new String[players * 3];
         pass = new String[players];
-        PlayerInfo.getPlayerInfo("bin/data/users.txt");
+        PlayerInfo.getPlayerInfo(Window.classLoader.getResource("data/users.txt").getPath());
     }
-
-
-
-
 }
