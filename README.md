@@ -31,17 +31,27 @@ Pong is one of the earliest arcade video games. It simulates table tennis or pin
 
 ### Menu view
 
+![image](https://github.com/marcol13/Java-pong-game/assets/56632321/3d1831a9-80a1-4c0d-a1cc-938de7e3ba0e)
+
 
 ### Game
+
+![image](https://github.com/marcol13/Java-pong-game/assets/56632321/37270273-f1ed-4438-9838-43917d4ee711)
 
 
 ### Create simple game
 
+[2024-01-06 01-03-09.webm](https://github.com/marcol13/Java-pong-game/assets/56632321/bdcd3b78-0ab1-4f94-9c3c-9c735397b608)
+
 
 ### Create an account
 
+[2024-01-06 01-04-40.webm](https://github.com/marcol13/Java-pong-game/assets/56632321/35cd43ac-3464-4093-9e2a-7db35334fbda)
+
 
 ### Create tournament
+
+[2024-01-06 01-05-15.webm](https://github.com/marcol13/Java-pong-game/assets/56632321/1fd1c694-8486-4a1a-b0e5-330b294b696c)
 
 
 ## Technologies Used
@@ -64,4 +74,7 @@ To get started with the Pong game, follow these steps:
 ## Current issues
 
 If you want me to help close that project you can check following issues! I will be glad for the help! I am not fluent in Java and I don't have enough of free time to refactor that code, so I want to do it at the lowest cost.
+
+- [**#2** Fix problem with unreachable resources after build](https://github.com/marcol13/Java-pong-game/issues/2)
+- [**#3** Create Dockerfile](https://github.com/marcol13/Java-pong-game/issues/3)
 
