@@ -40,13 +40,13 @@ public class Congratulation {
     }
 
     public void setAll(){
-        icon1 = new ImageIcon(Window.classLoader.getResource("boiler-right.gif").getPath());
+        icon1 = IconUtils.getIconByName("boiler-right.gif");
 
         iconLabel1 = new JLabel(icon1);
         iconLabel1.setBounds(new Rectangle(400 - icon1.getIconWidth() / 2, GameData.windowHeight / 2 - 4 * GameData.loginRectH, icon1.getIconWidth(), icon1.getIconHeight()));
         iconLabel1.setVisible(true);
 
-        icon2 = new ImageIcon(Window.classLoader.getResource("boiler-left.gif").getPath());
+        icon2 = IconUtils.getIconByName("boiler-left.gif");
 
         iconLabel2 = new JLabel(icon2);
         iconLabel2.setBounds(new Rectangle(GameData.windowWidth - 400 - icon2.getIconWidth() / 2, GameData.windowHeight / 2 - 4 * GameData.loginRectH, icon2.getIconWidth(), icon2.getIconHeight()));

@@ -57,7 +57,7 @@ public class PlaySettings {
     }
 
     public void setPlayPanel(){
-        player1Icon = new ImageIcon(Window.classLoader.getResource("player-walk-right.gif").getPath());
+        player1Icon = IconUtils.getIconByName("player-walk-right.gif");
 
         modeTitleLabel = new JLabel("", SwingConstants.CENTER);
         modeTitleLabel.setBounds(new Rectangle(0, GameData.loginPaddingH - 2 * GameData.loginRectH, GameData.windowWidth, GameData.loginRectH));
@@ -76,7 +76,7 @@ public class PlaySettings {
                 player1IconLabel.setBounds(new Rectangle(GameData.windowWidth / 10, GameData.windowHeight / 2 - 3 * GameData.loginRectH, player1Icon.getIconWidth(), player1Icon.getIconHeight()));
                 player1IconLabel.setVisible(true);
 
-                cpu1Icon = new ImageIcon(Window.classLoader.getResource("robot-idle-left.gif").getPath());
+                cpu1Icon = IconUtils.getIconByName("robot-idle-left.gif");
 
                 cpu1IconLabel = new JLabel(cpu1Icon);
                 cpu1IconLabel.setBounds(new Rectangle(GameData.windowWidth * 9 / 10 - cpu1Icon.getIconWidth(), GameData.windowHeight / 2 - 3 * GameData.loginRectH, cpu1Icon.getIconWidth(), cpu1Icon.getIconHeight()));
@@ -85,7 +85,6 @@ public class PlaySettings {
                 playPanel.add(player1IconLabel);
                 playPanel.add(cpu1IconLabel);
 
-//                startGameBtn = new myButton(new Rectangle(GameData.windowWidth / 3, GameData.windowHeight - GameData.menuPaddingH - 150 , GameData.windowWidth / 3 , GameData.loginRectH) ,"start game", playPanel);
             }
             case 1 -> {
                 modeTitleLabel.setText("Player VS Player");
@@ -94,7 +93,7 @@ public class PlaySettings {
                 player1IconLabel.setBounds(new Rectangle(GameData.windowWidth / 10, GameData.windowHeight / 2 - 3 * GameData.loginRectH, player1Icon.getIconWidth(), player1Icon.getIconHeight()));
                 player1IconLabel.setVisible(true);
 
-                player2Icon = new ImageIcon(Window.classLoader.getResource("player-walk-left.gif").getPath());
+                player2Icon = IconUtils.getIconByName("player-walk-left.gif");
 
                 player2IconLabel = new JLabel(player2Icon);
                 player2IconLabel.setBounds(new Rectangle(GameData.windowWidth * 9 / 10 - player2Icon.getIconWidth(), GameData.windowHeight / 2 - 3 * GameData.loginRectH, player2Icon.getIconWidth(), player2Icon.getIconHeight()));
@@ -118,7 +117,6 @@ public class PlaySettings {
                 playPanel.add(player2TextField);
                 playPanel.add(player2Label);
 
-//                startGameBtn = new myButton(new Rectangle(GameData.windowWidth / 3, GameData.windowHeight - GameData.menuPaddingH - 150 , GameData.windowWidth / 3 , GameData.loginRectH) ," start game ", playPanel);
             }
             case 2 -> {
                 modeTitleLabel.setText("2 Players VS 2 CPUs");
@@ -127,19 +125,19 @@ public class PlaySettings {
                 player1IconLabel.setBounds(new Rectangle(GameData.windowWidth / 10, GameData.windowHeight / 2 - 3 * GameData.loginRectH, player1Icon.getIconWidth(), player1Icon.getIconHeight()));
                 player1IconLabel.setVisible(true);
 
-                player2Icon = new ImageIcon(Window.classLoader.getResource("player-walk-right.gif").getPath());
+                player2Icon = IconUtils.getIconByName("player-walk-right.gif");
 
                 player2IconLabel = new JLabel(player2Icon);
                 player2IconLabel.setBounds(new Rectangle(GameData.windowWidth / 20, GameData.windowHeight / 2 - GameData.loginRectH, player2Icon.getIconWidth(), player2Icon.getIconHeight()));
                 player2IconLabel.setVisible(true);
 
-                cpu1Icon = new ImageIcon(Window.classLoader.getResource("robot-idle-left.gif").getPath());
+                cpu1Icon = IconUtils.getIconByName("robot-idle-left.gif");
 
                 cpu1IconLabel = new JLabel(cpu1Icon);
                 cpu1IconLabel.setBounds(new Rectangle(GameData.windowWidth * 9 / 10 - cpu1Icon.getIconWidth(), GameData.windowHeight / 2 - 3 * GameData.loginRectH, cpu1Icon.getIconWidth(), cpu1Icon.getIconHeight()));
                 cpu1IconLabel.setVisible(true);
 
-                cpu2Icon = new ImageIcon(Window.classLoader.getResource("robot-idle-left.gif").getPath());
+                cpu2Icon = IconUtils.getIconByName("robot-idle-left.gif");
 
                 cpu2IconLabel = new JLabel(cpu1Icon);
                 cpu2IconLabel.setBounds(new Rectangle(GameData.windowWidth * 19 / 20 - cpu2Icon.getIconWidth(), GameData.windowHeight / 2 - GameData.loginRectH, cpu2Icon.getIconWidth(), cpu2Icon.getIconHeight()));
@@ -165,15 +163,8 @@ public class PlaySettings {
                 playPanel.add(player2TextField);
                 playPanel.add(player2Label);
 
-//                startGameBtn = new myButton(new Rectangle(GameData.windowWidth / 3, GameData.windowHeight - GameData.menuPaddingH - 150 , GameData.windowWidth / 3 , GameData.loginRectH) ,"  start game  ", playPanel);
             }
         }
-
-
-//        JLabel gifLabel = new JLabel(player1Icon);
-//        gifLabel.setSize(400,400);
-
-
 
         maxPointsLabel = new JLabel("POINTS TO WIN", SwingConstants.CENTER);
         maxPointsLabel.setBounds(new Rectangle(0 , GameData.windowHeight - 5 * GameData.loginRectH - 7 * GameData.loginPaddingRectH, GameData.windowWidth, GameData.loginRectH));
@@ -196,19 +187,7 @@ public class PlaySettings {
         errorField.setHorizontalAlignment(JTextField.CENTER);
         errorField.setForeground(Color.RED);
         errorField.setBackground(Color.BLACK);
-//
-//        scoreLabel = new JLabel("WIN-LOSE", SwingConstants.CENTER);
-//        scoreLabel.setBounds(new Rectangle(GameData.windowWidth * 2 / 3, GameData.loginPaddingH - 2 * GameData.loginRectH, GameData.windowWidth / 3 , GameData.loginRectH));
-//        scoreLabel.setBackground(Color.BLACK);
-//        scoreLabel.setForeground(Color.WHITE);
-//        scoreLabel.setFont(Window.fontSecond);
-//        scoreLabel.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.WHITE));
-//        scoreLabel.setVisible(true);
-//
-//        statsPanel.add(nickLabel);
-//        statsPanel.add(scoreLabel);
 
-//        playPanel.add(gifLabel);
         playPanel.add(errorField);
         playPanel.add(modeTitleLabel);
         playPanel.add(maxPointsLabel);
