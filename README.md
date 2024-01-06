@@ -67,7 +67,7 @@ To get started with the Pong game, follow these steps:
 2. Clone the repository: `git clone https://github.com/marcol13/Java-pong-game`
 3. If you have installed Maven on your computer run: `mvn install` and `mvn assembly:single`
 4. If you use IntelliJ just run above two commands through IDE.
-5. ⚠ Warning! Due to some problems, game works fully in developer (IDE) mode ⚠ You can check [issue] to help me fix that problem!
+5. ⚠ Warning! Due to some problems, game works fully in developer (IDE) mode only ⚠ You can check [issue] to help me fix that problem!
 6. Go to `target` directory: `cd target`
 7. Run Jar file: `java -jar Java-pong-game-1.0-SNAPSHOT-jar-with-dependencies.jar`
 
