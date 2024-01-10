@@ -75,6 +75,7 @@ To get started with the Pong game, follow these steps:
 
 If you want me to help close that project you can check following issues! I will be glad for the help! I am not fluent in Java and I don't have enough of free time to refactor that code, so I want to do it at the lowest cost.
 
-- [**#2** Fix problem with unreachable resources after build](https://github.com/marcol13/Java-pong-game/issues/2)
 - [**#3** Create Dockerfile](https://github.com/marcol13/Java-pong-game/issues/3)
+
+Also special thanks to [@tomaszsmy](https://github.com/tomaszsmy) for his help!
 
