@@ -1,8 +1,5 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
+import java.io.*;
+import java.util.List;
 
 public class PlayerInfo {
 
@@ -32,48 +29,26 @@ public class PlayerInfo {
         }
     }
 
-    public static void getPlayerInfo(String filename){
+    public static void getPlayerInfo(InputStream usersFile){
         int i = 0;
         int j = 0;
         int k = 0;
-        try {
-            File myObj = new File(filename);
-            Scanner myReader = new Scanner(myObj);
-            while (myReader.hasNextLine()) {
-                String data = myReader.nextLine();
-                if(i % 4 != 1){
-                    Window.userInfo[j] = data;
-                    j++;
-                }
-                else{
-                    Window.pass[k] = data;
-                    k++;
-                }
-                i++;
+
+        List<String> users = new BufferedReader(new InputStreamReader(usersFile)).lines().toList();
+        for(String user : users) {
+            if (i % 4 != 1){
+                Window.userInfo[j] = user;
+                j++;
+            } else {
+                Window.pass[k] = user;
+                k++;
             }
-            myReader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+            i++;
         }
     }
 
-    public static int users_quantity(String filename){
-            int i = 0;
-            try {
-                File myObj = new File(filename);
-                Scanner myReader = new Scanner(myObj);
-                while (myReader.hasNextLine()) {
-                    String data = myReader.nextLine();
-                    i++;
-                }
-                myReader.close();
-            } catch (FileNotFoundException e) {
-                System.out.println("An error occurred.");
-                e.printStackTrace();
-                return -1;
-            }
-        return i;
-
+    public static int users_quantity(InputStream usersFile){
+        List<String> users = new BufferedReader(new InputStreamReader(usersFile)).lines().toList();
+        return users.size();
     }
 }

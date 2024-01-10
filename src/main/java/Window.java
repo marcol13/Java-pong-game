@@ -1,24 +1,11 @@
-import javax.swing.JFrame;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.Objects;
-import java.util.Scanner;
 
 
 public class Window{
 
-//    GameMode1v1 game;
-//    GameMode1vAI game;
-//    GameMode2v2AI game;
-//    Clock clock;
-    Graphics2D g;
+    Graphics2D graphics2D;
 
-    Users user = new Users();
     public static Menu menu;
     public static LoginForm login;
     public static MyFrame myFrame;
@@ -26,7 +13,6 @@ public class Window{
     public static PlaySettings playSettings;
     public static TournamentChoose tournamentChoose;
     public static CreateTournament createTournament;
-//    public static TournamentTable tournamentTable;
     public static Tournament tournament;
     public static Congratulation congratulation;
     public static LoadWindow loadWindow;
@@ -55,30 +41,28 @@ public class Window{
         gameModeInt = 0;
 
         try {
-            fontTitle = Font.createFont(Font.TRUETYPE_FONT, new File(Window.classLoader.getResource("baby_blocks.ttf").getPath())).deriveFont(80f);
+            fontTitle = Font.createFont(Font.TRUETYPE_FONT, Window.classLoader.getResourceAsStream("baby_blocks.ttf")).deriveFont(80f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(Window.classLoader.getResource("baby_blocks.ttf").getPath())));
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, Window.classLoader.getResourceAsStream("baby_blocks.ttf")));
 
-            fontSecond = Font.createFont(Font.TRUETYPE_FONT, new File(Window.classLoader.getResource("dogica.otf").getPath())).deriveFont(40f);
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(Window.classLoader.getResource("dogica.otf").getPath())));
+            fontSecond = Font.createFont(Font.TRUETYPE_FONT, Window.classLoader.getResourceAsStream("dogica.otf")).deriveFont(40f);
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, Window.classLoader.getResourceAsStream("dogica.otf")));
 
             fontSubtitle = new Font("Baby blocks", Font.PLAIN, (int)(GameData.fontSize));
             fontOption = new Font("Baby blocks", Font.PLAIN, (int)(GameData.fontSize * 0.6));
             fontSecondSmall = new Font("Dogica", Font.PLAIN, (int)(GameData.fontSize * 0.4));
-        } catch (IOException |FontFormatException e) {
-            Font fontTitle = new Font("TimeRoman", Font.PLAIN, GameData.fontSize * 2);
-            Font fontSubtitle = new Font("TimeRoman", Font.PLAIN, (int)(GameData.fontSize * 0.75));
-            Font fontOption = new Font("TimeRoman", Font.PLAIN, GameData.fontSize);
+        } catch (IOException | FontFormatException e) {
+            throw new RuntimeException(e);
         }
 
-        g = (Graphics2D)myFrame.getGraphics();
+        graphics2D = (Graphics2D)myFrame.getGraphics();
         menu = new Menu(myFrame);
     }
 
     public static void updatePlayers(){
-        players = PlayerInfo.users_quantity(Window.classLoader.getResource("data/users.txt").getPath()) / 4;
+        players = PlayerInfo.users_quantity(Window.classLoader.getResourceAsStream("data/users.txt")) / 4;
         userInfo = new String[players * 3];
         pass = new String[players];
-        PlayerInfo.getPlayerInfo(Window.classLoader.getResource("data/users.txt").getPath());
+        PlayerInfo.getPlayerInfo(Window.classLoader.getResourceAsStream("data/users.txt"));
     }
 }
